@@ -32,6 +32,9 @@ export default function Navbar() {
                 <Link href="/custom-urls" className="hover:underline hover:text-orange-100 transition-all">
                   Custom URLs
                 </Link>
+                <Link href="/shorturlcheck" className="hover:underline hover:text-orange-100 transition-all">
+                  Check Short URLs
+                </Link>
                 <button
                   onClick={logout}
                   className="hover:underline text-red-100 hover:text-red-300 transition-all"
