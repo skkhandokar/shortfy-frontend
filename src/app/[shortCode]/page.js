@@ -10,7 +10,7 @@ export default function Redirect({ params }) {
   useEffect(() => {
     const fetchRedirectData = async () => {
       try {
-        const res = await fetch('https://skkhandokar22.pythonanywhere.com/api/check/${shortCode}/');
+        const res = await fetch(`https://skkhandokar22.pythonanywhere.com/api/check/${shortCode}/`);
         if (!res.ok) throw new Error('Shortcode not found');
 
         const data = await res.json();
