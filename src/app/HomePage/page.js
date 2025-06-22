@@ -19,6 +19,9 @@ export default function Home() {
   const [isCustomShortCode, setIsCustomShortCode] = useState(false);
   const router = useRouter();
 
+  // Move this here to use in both render and submit
+  const isNotCustomValidLength = (customShortCode.length ===0 ||customShortCode.length ===6 || customShortCode.length ===7);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsAuthenticated(!!token);
@@ -31,6 +34,11 @@ export default function Home() {
       setError('Please enter a valid URL starting with http or https.');
       return;
     }
+
+    if (isCustomShortCode && isNotCustomValidLength) {
+    setError('Custom shortcode length cannot be 0, 6, or 7 characters.');
+    return;
+  }
 
     try {
       const token = localStorage.getItem('token');
@@ -106,23 +114,29 @@ export default function Home() {
               {isCustomShortCode ? 'Use Random Shortcode' : 'Use Custom Shortcode'}
             </Button>
 
-            {isCustomShortCode && (
-              <TextField
-                fullWidth
-                label="Enter Custom Shortcode"
-                variant="outlined"
-                value={customShortCode}
-                onChange={(e) => setCustomShortCode(e.target.value)}
-                placeholder="e.g. cool123"
-              />
+           {isCustomShortCode && (
+               <>
+                <TextField
+                  fullWidth
+                  label="Enter Custom Shortcode"
+                  variant="outlined"
+                  value={customShortCode}
+                  onChange={(e) => setCustomShortCode(e.target.value)}
+                  placeholder="e.g. cool123"
+                  error={isNotCustomValidLength}
+                  helperText={isNotCustomValidLength ? "Custom shortcode cannot be 0, 6 or 7 characters" : ""}
+                />
+              </>
             )}
+
 
             <Button
               type="submit"
               variant="contained"
               size="large"
+              disabled={isCustomShortCode && isNotCustomValidLength}
               fullWidth
-              className="bg-gradient-to-r from-emerald-400 via-teal-300 to-orange-300 text-white font-bold py-3 hover:from-emerald-500 hover:to-orange-400 transition-all hover:scale-105"
+              className="bg-gradient-to-r from-emerald-400 via-teal-300 to-orange-300 text-white font-bold py-3 hover:from-emerald-500 hover:to-orange-400 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Shorten It 🚀
             </Button>
@@ -143,7 +157,7 @@ export default function Home() {
                 </Typography>
                 <Box className="flex items-center justify-center space-x-2">
                   <Typography variant="body1" className="break-all text-emerald-700 font-semibold">
-                    <a href={`http://${shortUrl}`} target="_blank" rel="noopener noreferrer">
+                    <a href={shortUrl} target="_blank" rel="noopener noreferrer">
                       {shortUrl}
                     </a>
                   </Typography>
@@ -158,7 +172,6 @@ export default function Home() {
                   </Button>
                 </Box>
 
-                {/* Authenticated Buttons */}
                 {isAuthenticated && (
                   <div className="flex flex-col space-y-2 mt-4">
                     <Button
