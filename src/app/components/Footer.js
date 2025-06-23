@@ -15,7 +15,7 @@ export default function Footer() {
           <Box className="flex flex-wrap justify-center sm:justify-end gap-6 font-semibold">
             <Link href="/about" className="hover:text-emerald-600 hover:underline transition">About</Link>
             <Link href="/contact" className="hover:text-emerald-600 hover:underline transition">Contact</Link>
-            <Link href="/terms" className="hover:text-emerald-600 hover:underline transition">Terms & Condition</Link>
+            <Link href="/terms-and-condition" className="hover:text-emerald-600 hover:underline transition">Terms & Condition</Link>
           </Box>
         </Box>
       </Container>
