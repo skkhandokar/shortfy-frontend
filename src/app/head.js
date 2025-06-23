@@ -2,8 +2,8 @@
 export default function Head() {
   return (
     <>
-      <title>Shortfy</title>
-      <meta name= "Shortfy" content="Instantly shorten, manage, and share your links with ease. Simple, fast, and powerful URL shortening." />
+      <title>Short Url</title>
+      <meta name= "Shortfy" content="Shortfy helps you create clean, short URLs for YouTube, WhatsApp, Instagram, and any website—fast, free, and easy to use." />
      
     </>
   );
