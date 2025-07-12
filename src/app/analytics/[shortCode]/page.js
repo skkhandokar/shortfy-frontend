@@ -100,7 +100,7 @@ export default function AnalyticsPage({ params }) {
   }, [shortCode]);
 
   // Limit to top 10 + others for countries (large list)
-  const countryData = topNWithOthers(analytics.country, 10);
+  const countryData = topNWithOthers(analytics.country, 30);
 
   // Other categories usually small, no trimming needed, but you can add topNWithOthers if you want
   const browserData = analytics.browser || [];
