@@ -304,7 +304,7 @@ export default function MyURLs() {
       setOrigin(window.location.origin)
     }
 
-    fetch('http://127.0.0.1:8000/api/custom-urls/', {
+    fetch('https://skkhandokar22.pythonanywhere.com/api/custom-urls/', { 
       headers: {
         Authorization: `Token ${token}`,
       },
