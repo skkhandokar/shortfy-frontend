@@ -51,8 +51,8 @@ export default function Home() {
         : { original_url: url };
 
       const endpoint = isCustomShortCode
-        ? 'https://www.shortfy.xyz/api/custom-url/'
-        : 'https://www.shortfy.xyz/api/create/';
+        ? 'https://skkhandokar22.pythonanywhere.com/api/custom-url/'
+        : 'https://skkhandokar22.pythonanywhere.com/api/create/';
 
       const response = await axios.post(endpoint, data, config);
 

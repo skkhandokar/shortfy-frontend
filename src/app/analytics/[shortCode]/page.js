@@ -94,13 +94,13 @@ export default function AnalyticsPage({ params }) {
   useEffect(() => {
     if (!shortCode) return;
 
-    axios.get(`https://www.shortfy.xyz/api/analytics/${shortCode}/`)
+    axios.get(`https://skkhandokar22.pythonanywhere.com/api/analytics/${shortCode}/`)
       .then(res => setAnalytics(res.data))
       .catch(err => console.error(err));
   }, [shortCode]);
 
   // Limit to top 10 + others for countries (large list)
-  const countryData = topNWithOthers(analytics.country, 10);
+  const countryData = topNWithOthers(analytics.country, 30);
 
   // Other categories usually small, no trimming needed, but you can add topNWithOthers if you want
   const browserData = analytics.browser || [];

@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 'use client'
 
 import { useRef, useState } from 'react'
@@ -43,7 +50,7 @@ export default function URLCard({ url, origin, setUrls }) {
     if (!confirm('Are you sure you want to delete this URL?')) return
 
     try {
-      const res = await fetch(`https://www.shortfy.xyz/api/delete/${id}/`, {
+      const res = await fetch(`https://skkhandokar22.pythonanywhere.com/api/delete/${id}/`, {
         method: 'DELETE',
         headers: {
           Authorization: `Token ${token}`,

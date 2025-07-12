@@ -27,7 +27,7 @@ export default function MyURLs() {
       setOrigin(window.location.origin)
     }
 
-    fetch('https://www.shortfy.xyz/api/my-urls/', {
+    fetch('https://skkhandokar22.pythonanywhere.com/api/my-urls/', {
       headers: {
         Authorization: `Token ${token}`,
       },

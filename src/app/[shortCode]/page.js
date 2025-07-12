@@ -10,7 +10,7 @@ export default function RedirectPage({ params }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.location.href = 'https://www.shortfy.xyz/api/check/${shortCode}/';
+              window.location.href = 'https://skkhandokar22.pythonanywhere.com/api/check/${shortCode}/';
             `,
           }}
         />
