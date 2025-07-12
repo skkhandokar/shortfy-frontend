@@ -4,9 +4,10 @@ import { useRef, useState } from 'react'
 import { Card, CardContent, Typography, Link as MuiLink, Avatar, Button, Modal } from '@mui/material'
 import { QRCodeCanvas } from 'qrcode.react'
 
-export default function URLCard({ url, origin,setUrls }) {
+export default function URLCard({ url, origin, setUrls }) {
   const shortUrl = `${origin}/${url.short_code}`
   const [open, setOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
   const qrRef = useRef(null)
 
   const getFavicon = (url) => {
@@ -28,31 +29,36 @@ export default function URLCard({ url, origin,setUrls }) {
       link.click()
     }
   }
-  const handleDelete = async (id) => {
-  const token = localStorage.getItem('token')
-  if (!token) return
 
-  if (!confirm('Are you sure you want to delete this URL?')) return
-
-  try {
-    const res = await fetch(`https://skkhandokar22.pythonanywhere.com/api/delete/${id}/`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-
-    if (res.status === 204) {
-      setUrls(prev => prev.filter(url => url.id !== id))
-      alert('Successfully delete URL')
-      window.location.reload()
-    } else {
-      alert('Failed to delete URL')
-    }
-  } catch (err) {
-    console.error('Delete error:', err)
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shortUrl)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
-}
+
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem('token')
+    if (!token) return
+
+    if (!confirm('Are you sure you want to delete this URL?')) return
+
+    try {
+      const res = await fetch(`https://www.shortfy.xyz/api/delete/${id}/`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+
+      if (res.status === 204) {
+        setUrls(prev => prev.filter(item => item.id !== id))
+      } else {
+        alert('Failed to delete URL')
+      }
+    } catch (err) {
+      console.error('Delete error:', err)
+    }
+  }
 
   return (
     <>
@@ -80,20 +86,29 @@ export default function URLCard({ url, origin,setUrls }) {
               >
                 {shortUrl}
               </MuiLink>
-              <Button size="small" variant="outlined" onClick={() => navigator.clipboard.writeText(shortUrl)}>
+              <Button size="small" variant="outlined" onClick={handleCopy}>
                 Copy
               </Button>
+              {copied && <span className="text-green-600 text-sm font-medium">Copied!</span>}
               <Button size="small" variant="outlined" onClick={() => setOpen(true)}>
                 QR
               </Button>
               <Button
-                        size="small"
-                        variant="outlined"
-                        color="error"
-                        onClick={() => handleDelete(url.id)}
-                      >
-                        Delete
-                        </Button>          
+                size="small"
+                variant="outlined"
+                color="secondary"
+                onClick={() => window.open(`/analytics/${url.short_code}`, '_blank')}
+              >
+                Show Analytics
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                color="error"
+                onClick={() => handleDelete(url.id)}
+              >
+                Delete
+              </Button>
             </div>
 
             <Typography variant="subtitle2" className="text-gray-500 uppercase tracking-wider mb-1">

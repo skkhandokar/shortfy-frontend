@@ -51,8 +51,8 @@ export default function Home() {
         : { original_url: url };
 
       const endpoint = isCustomShortCode
-        ? 'https://skkhandokar22.pythonanywhere.com/api/custom-url/'
-        : 'https://skkhandokar22.pythonanywhere.com/api/create/';
+        ? 'https://www.shortfy.xyz/api/custom-url/'
+        : 'https://www.shortfy.xyz/api/create/';
 
       const response = await axios.post(endpoint, data, config);
 
@@ -122,7 +122,7 @@ export default function Home() {
                   variant="outlined"
                   value={customShortCode}
                   onChange={(e) => setCustomShortCode(e.target.value)}
-                  placeholder="e.g. cool123"
+                  placeholder="e.g. abc12"
                   error={isNotCustomValidLength}
                   helperText={isNotCustomValidLength ? "Custom shortcode cannot be 0, 6 or 7 characters" : ""}
                 />

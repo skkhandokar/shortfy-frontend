@@ -20,7 +20,7 @@ export default function CheckShortURL() {
 
     try {
       const shortCode = shortUrl.trim().split("/").pop();
-      const res = await fetch(`https://skkhandokar22.pythonanywhere.com/api/checkshortcode/${shortCode}/`);
+      const res = await fetch(`https://www.shortfy.xyz/api/checkshortcode/${shortCode}/`);
       const data = await res.json();
 
       if (res.ok) {
