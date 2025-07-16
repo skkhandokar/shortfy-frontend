@@ -18,8 +18,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* ✅ Google AdSense Script */}
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3914040246342551"
-         crossorigin="anonymous"></script>
+        
+      <meta name="google-adsense-account" content="ca-pub-3914040246342551"></meta>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
