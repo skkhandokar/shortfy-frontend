@@ -13,7 +13,6 @@ export default function Navbar() {
         <title>{username ? `Welcome, ${username} | Shortfy` : 'Shortfy ✨ - Shorten your links'}</title>
         <meta name="description" content="A smart URL shortener for everyone." />
         <link rel="icon" href="/favicon.ico" />
-        <script type='text/javascript' src='//pl26716472.profitableratecpm.com/1c/c9/f5/1cc9f58c866698492f57b2a5845644dc.js'></script>
       </Head>
 
       <nav className="fixed top-0 left-0 w-full bg-gradient-to-r from-emerald-400 via-teal-400 to-orange-300 text-white p-4 shadow-lg backdrop-blur-md z-50">
