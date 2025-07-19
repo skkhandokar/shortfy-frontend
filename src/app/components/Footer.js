@@ -16,6 +16,7 @@ export default function Footer() {
             <Link href="/about" className="hover:text-emerald-600 hover:underline transition">About</Link>
             <Link href="/contact" className="hover:text-emerald-600 hover:underline transition">Contact</Link>
             <Link href="/terms-and-condition" className="hover:text-emerald-600 hover:underline transition">Terms & Condition</Link>
+             <Link href="/privacy-policy" className="hover:text-emerald-600 hover:underline transition">Privacy</Link>
           </Box>
         </Box>
       </Container>

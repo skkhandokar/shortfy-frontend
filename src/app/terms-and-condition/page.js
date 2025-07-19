@@ -3,7 +3,7 @@ export default function TermsPage() {
     <div className="max-w-4xl mx-auto py-12 px-6">
       <h1 className="text-4xl font-bold mb-6 mt-4 text-emerald-800">Terms & Conditions</h1>
 
-      <p className="text-gray-700 text-lg leading-relaxed mb-4">
+      <p className="text-gray-600 text-lg leading-relaxed mb-4">
         These Terms and Conditions govern your use of Shortfy.xyz. By using this site, you agree to these terms. If you do not agree, please do not use our service.
       </p>
 

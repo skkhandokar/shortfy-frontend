@@ -31,6 +31,9 @@ export default function Navbar() {
                 <Link href="/custom-urls" className="hover:underline hover:text-orange-100 transition-all">
                   Custom URLs
                 </Link>
+                <Link href="/features" className="hover:underline hover:text-orange-100 transition-all">
+                  Features
+                </Link>
                 <Link href="/shorturlcheck" className="hover:underline hover:text-orange-100 transition-all">
                   Check Short URLs
                 </Link>
@@ -43,6 +46,18 @@ export default function Navbar() {
               </>
             ) : (
               <>
+                <Link href="/signin" className="hover:underline hover:text-orange-100 transition-all">
+                  My URLs
+                </Link>
+                <Link href="/signin" className="hover:underline hover:text-orange-100 transition-all">
+                  Custom URLs
+                </Link>
+                 <Link href="/features" className="hover:underline hover:text-orange-100 transition-all">
+                  Features
+                </Link>
+                <Link href="/shorturlcheck" className="hover:underline hover:text-orange-100 transition-all">
+                  Check Short URLs
+                </Link>
                 <Link href="/signin" className="hover:underline hover:text-orange-100 transition-all">
                   Login
                 </Link>

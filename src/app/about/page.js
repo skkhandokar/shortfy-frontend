@@ -17,8 +17,9 @@ export default function AboutPage() {
         <li>Unlimited URL shortening — no restrictions or limits</li>
         <li>Custom short links (e.g., shortfy.xyz/yourname)</li>
         <li>Anonymous and authenticated shortening options</li>
+        <li>Each shortened URL comes with a downloadable QR code</li>
         <li>User dashboard to manage and view your links</li>
-        <li>Link analytics (coming soon!)</li>
+        <li>Link analytics </li>
       </ul>
 
       <h2 className="text-2xl font-semibold text-emerald-700 mt-8 mb-4">🌍 Why We Built It</h2>
