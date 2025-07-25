@@ -112,7 +112,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-emerald-200 via-teal-100 to-orange-100 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-tr from-emerald-200 via-teal-100 to-orange-100 flex items-center justify-center">
       <Container maxWidth="sm">
         <Box className="bg-white/30 backdrop-blur-md rounded-3xl shadow-2xl p-10">
           <Typography variant="h4" className="text-center font-extrabold mb-8 text-emerald-700 tracking-wide">
