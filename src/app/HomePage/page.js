@@ -22,6 +22,24 @@ export default function Home() {
   // Move this here to use in both render and submit
   const isNotCustomValidLength = (customShortCode.length ===0 ||customShortCode.length ===6 || customShortCode.length ===7);
 
+  const IntroSection = () => {
+  return (
+    <Box className="mt-10 text-center bg-white/40 backdrop-blur-md rounded-2xl shadow-md p-6 sm:p-10">
+      <Typography variant="h4" className="text-emerald-700 font-bold mb-4">
+        🔗 The Original URL Shortener
+      </Typography>
+      <Typography variant="body1" className="text-gray-800 text-lg">
+        Create shorter URLs instantly with our simple tool. 
+        Track clicks, devices, countries, and browsers. 
+        Customize your links with branded shortcodes and even QR codes.
+      </Typography>
+      <Typography variant="body2" className="mt-4 text-gray-600">
+        Everything is free. Stay organized, safe, and efficient with your links.
+      </Typography>
+    </Box>
+  );
+};
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsAuthenticated(!!token);
@@ -197,6 +215,8 @@ export default function Home() {
             </>
           )}
         </Box>
+
+    <IntroSection />      
       </Container>
 
       <Snackbar
