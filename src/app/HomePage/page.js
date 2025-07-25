@@ -4,9 +4,10 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import {
   Container, TextField, Button, Box, Typography,
-  Snackbar, Alert, Divider
+  Snackbar, Alert, useMediaQuery, Divider
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useTheme } from '@mui/material/styles';
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -14,6 +15,14 @@ export default function Home() {
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [customShortCode, setCustomShortCode] = useState('');
   const [isCustomShortCode, setIsCustomShortCode] = useState(false);
@@ -106,7 +115,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-tr from-emerald-200 via-teal-100 to-orange-100 flex items-center justify-center p-6">
       <Container maxWidth="sm">
         <Box className="bg-white/30 backdrop-blur-md rounded-3xl shadow-2xl p-10">
-          <Typography variant="h4" className="text-center mt-8 font-bold mb-8 text-emerald-700 tracking-wide">
+          <Typography variant="h4" className="text-center font-extrabold mb-8 text-emerald-700 tracking-wide">
             ✨ Shortfy Your Links
           </Typography>
 
@@ -219,16 +228,32 @@ export default function Home() {
     <IntroSection />      
       </Container>
 
-      <Snackbar
+<Snackbar
         open={openSnackbar}
         autoHideDuration={3000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        sx={{
+          width: isMobile ? '90%' : '400px',
+          mx: 'auto', // center horizontally
+        }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: isMobile ? '0.875rem' : '1rem',
+            p: isMobile ? 1 : 2,
+          }}
+        >
           {snackbarMessage}
         </Alert>
       </Snackbar>
+    </div>
+  );
+}
+          
     </div>
   );
 }
