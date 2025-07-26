@@ -299,9 +299,9 @@ export default function MyURLs() {
       router.push('/signin')
       return
     }
-
+const BASE_URL = 'https://shortfy.xyz';
     if (typeof window !== 'undefined') {
-      setOrigin(window.location.origin)
+      setOrigin(BASE_URL)
     }
 
     fetch('https://skkhandokar22.pythonanywhere.com/api/custom-urls/', { 
