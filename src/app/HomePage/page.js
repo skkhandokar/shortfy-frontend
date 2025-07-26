@@ -83,9 +83,15 @@ export default function Home() {
 
       const response = await axios.post(endpoint, data, config);
 
-      const shortened = isCustomShortCode
-        ? `${window.location.origin}/${customShortCode}`
-        : `${window.location.origin}/${response.data.short_code}`;
+      
+const BASE_URL = 'https://shortfy.xyz';
+
+const shortened = isCustomShortCode
+  ? `${BASE_URL}/${customShortCode}`
+  : `${BASE_URL}/${response.data.short_code}`;
+     // const shortened = isCustomShortCode
+      //  ? `${window.location.origin}/${customShortCode}`
+     //   : `${window.location.origin}/${response.data.short_code}`;
 
       setShortUrl(shortened);
       setError('');
