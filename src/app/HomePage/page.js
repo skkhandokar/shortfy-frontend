@@ -113,16 +113,16 @@ const shortened = isCustomShortCode
     setOpenSnackbar(true);
   };
 
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
+  // const handleCloseSnackbar = () => {
+  //   setOpenSnackbar(false);
+  // };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-emerald-200 via-teal-100 to-orange-100 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-tr from-emerald-200 via-teal-100 to-orange-100 flex items-center justify-center mt-[70px]">
       <Container maxWidth="sm">
      
         <Box className="bg-white/30 backdrop-blur-md rounded-3xl shadow-2xl p-10">
-          <Typography variant="h4" className="text-center font-extrabold mb-8 text-emerald-700 tracking-wide">
+          <Typography variant="h4" className="text-center font-extrabold mb-8  text-emerald-700 tracking-wide">
             ✨ Shortfy Your Links
           </Typography>
 
@@ -260,7 +260,4 @@ const shortened = isCustomShortCode
     </div>
   );
 }
-          
-    </div>
-  );
-}
+ 
