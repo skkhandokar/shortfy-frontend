@@ -69,7 +69,7 @@ const BASE_URL = 'https://shortfy.xyz';
         <p className="text-center text-gray-500 text-lg">
           No URLs found yet.{' '}
           <Link href="/" className="text-indigo-600 hover:text-indigo-800 font-semibold transition duration-300">
-            Start shortening!
+            Start Shortening!
           </Link>
         </p>
       ) : (

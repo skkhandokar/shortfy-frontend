@@ -153,7 +153,7 @@ export default function MyURLs() {
         <p className="text-center text-gray-500">
           No URLs found yet.{' '}
           <Link href="/" className="text-indigo-600 font-semibold">
-            Start shortening!
+            Start Shortening!
           </Link>
         </p>
       ) : (
