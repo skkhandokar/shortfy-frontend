@@ -29,19 +29,28 @@ body {
 @tailwind components;
 @tailwind utilities;
 
+/* =========================
+   Animations (Custom)
+   ========================= */
 @layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-  }
-
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(-4px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* React Native style fade */
+  .animate-fadeIn {
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  /* Optional longer fade */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
   }
 }

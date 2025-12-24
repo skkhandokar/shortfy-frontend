@@ -24,7 +24,7 @@ export default function Navbar() {
           <div className="space-x-6 text-sm sm:text-base flex items-center">
             {username ? (
               <>
-                <span className="font-semibold hidden sm:inline">👋 Hello, {username}</span>
+                <span className="font-semibold hidden sm:inline"> {username}</span>
                 <Link href="/my-urls" className="hover:underline hover:text-orange-100 transition-all">
                   My URLs
                 </Link>
