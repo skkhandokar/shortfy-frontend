@@ -13,6 +13,11 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import { QRCodeCanvas } from 'qrcode.react'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import ShareIcon from '@mui/icons-material/Share'
+import QrCodeIcon from '@mui/icons-material/QrCode'
+import AnalyticsIcon from '@mui/icons-material/Analytics'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export default function MyURLs() {
   const [urls, setUrls] = useState([])
@@ -130,6 +135,22 @@ export default function MyURLs() {
     link.click()
   }
 
+  /* ======================
+     Share URL
+     ====================== */
+  const handleShare = (shortUrl) => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Shortfy URL',
+        text: 'Check out this short URL:',
+        url: shortUrl,
+      }).catch(err => console.log('Share failed:', err))
+    } else {
+      navigator.clipboard.writeText(shortUrl)
+      alert('URL copied to clipboard for sharing!')
+    }
+  }
+
   return (
     <div className="max-w-5xl mx-auto p-6">
       {/* ================= HERO SECTION ================= */}
@@ -197,6 +218,7 @@ export default function MyURLs() {
                               <Button
                                 size="small"
                                 variant="outlined"
+                                startIcon={<ContentCopyIcon />}
                                 onClick={() => {
                                   navigator.clipboard.writeText(shortUrl)
                                   setCopiedCode(code)
@@ -204,6 +226,15 @@ export default function MyURLs() {
                                 }}
                               >
                                 Copy
+                              </Button>
+
+                              <Button
+                                size="small"
+                                variant="outlined"
+                                startIcon={<ShareIcon />}
+                                onClick={() => handleShare(shortUrl)}
+                              >
+                                Share
                               </Button>
 
                               {copiedCode === code && (
@@ -215,6 +246,7 @@ export default function MyURLs() {
                               <Button
                                 size="small"
                                 variant="outlined"
+                                startIcon={<QrCodeIcon />}
                                 onClick={() => {
                                   setQrUrl(shortUrl)
                                   setOpenQrModal(true)
@@ -227,6 +259,7 @@ export default function MyURLs() {
                                 size="small"
                                 variant="outlined"
                                 color="secondary"
+                                startIcon={<AnalyticsIcon />}
                                 onClick={() =>
                                   window.open(`/analytics/${code}`, '_blank')
                                 }
@@ -238,6 +271,7 @@ export default function MyURLs() {
                                 size="small"
                                 variant="outlined"
                                 color="error"
+                                startIcon={<DeleteIcon />}
                                 onClick={() => {
                                   setConfirmDelete({ id: url.id, code })
                                   setDeleteError('')

@@ -11,6 +11,11 @@ import {
   Modal,
 } from '@mui/material'
 import { QRCodeCanvas } from 'qrcode.react'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import ShareIcon from '@mui/icons-material/Share'
+import QrCodeIcon from '@mui/icons-material/QrCode'
+import AnalyticsIcon from '@mui/icons-material/Analytics'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export default function URLCard({ url, origin, setUrls }) {
   const shortUrl = `${origin}/${url.short_code}`
@@ -35,6 +40,24 @@ export default function URLCard({ url, origin, setUrls }) {
     navigator.clipboard.writeText(shortUrl)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Shortfy URL',
+          text: 'Check out this short URL:',
+          url: shortUrl,
+        })
+      } catch (err) {
+        console.log('Error sharing:', err)
+      }
+    } else {
+      // fallback if Web Share API is not supported
+      navigator.clipboard.writeText(shortUrl)
+      alert('URL copied to clipboard for sharing!')
+    }
   }
 
   const handleDownload = () => {
@@ -106,8 +129,22 @@ export default function URLCard({ url, origin, setUrls }) {
                 {shortUrl}
               </MuiLink>
 
-              <Button size="small" variant="outlined" onClick={handleCopy}>
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<ContentCopyIcon />}
+                onClick={handleCopy}
+              >
                 Copy
+              </Button>
+
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<ShareIcon />}
+                onClick={handleShare}
+              >
+                Share
               </Button>
 
               {copied && (
@@ -116,7 +153,12 @@ export default function URLCard({ url, origin, setUrls }) {
                 </span>
               )}
 
-              <Button size="small" variant="outlined" onClick={() => setOpen(true)}>
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<QrCodeIcon />}
+                onClick={() => setOpen(true)}
+              >
                 QR
               </Button>
 
@@ -124,6 +166,7 @@ export default function URLCard({ url, origin, setUrls }) {
                 size="small"
                 variant="outlined"
                 color="secondary"
+                startIcon={<AnalyticsIcon />}
                 onClick={() =>
                   window.open(`/analytics/${url.short_code}`, '_blank')
                 }
@@ -135,6 +178,7 @@ export default function URLCard({ url, origin, setUrls }) {
                 size="small"
                 variant="outlined"
                 color="error"
+                startIcon={<DeleteIcon />}
                 onClick={() => {
                   setConfirmDelete(true)
                   setDeleteError('')
@@ -213,7 +257,11 @@ export default function URLCard({ url, origin, setUrls }) {
           </p>
 
           <div className="mt-4 flex justify-center gap-3">
-            <Button onClick={handleDownload} variant="outlined">
+            <Button
+              onClick={handleDownload}
+              variant="outlined"
+              startIcon={<QrCodeIcon />}
+            >
               Download
             </Button>
             <Button onClick={() => setOpen(false)} variant="contained">
