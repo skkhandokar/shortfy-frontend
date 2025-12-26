@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import axios from 'axios';
 import {
   Chart as ChartJS,
@@ -16,19 +17,19 @@ import { Tab } from '@headlessui/react';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
-// Generate 150 distinct colors using HSL
+// Generate distinct colors
 const colors = [
   '#FF6384', '#89a5b7ff', '#FFCE56',
   '#66bb6a', '#ab47bc', '#ffa726',
   '#8d6e63', '#42a5f5', '#f44336',
   '#008080', '#800080', '#4c1e0eff', '#2E8B57',
-  '#ca6379ff', '#466376ff', '#716b5cff',
-  '#17d375ff', '#335871ff', '#b43131ff',
-   '#df3b04ff', '#cf7acfff', '#dca593ff', '#081b10ff',
-    '#c6a3c1ff', '#aa67aa8d', '#f76e40ff', '#599134ff',
-     '#ffffffff', '#000000ff', '#a5a5a5ff', '#75ab8cff',
-    '#04f900ff', '#fa04faff', '#6600ffff', '#006affff',  
-     '#7fcdc1ff', '#d99fd9ff', '#6c67a3ff', '#945f5fff',
+  '#ca6379ff', '#466376ff', '#716b5cff', '#17d375ff',
+  '#335871ff', '#b43131ff', '#df3b04ff', '#cf7acfff',
+  '#dca593ff', '#081b10ff', '#c6a3c1ff', '#aa67aa8d',
+  '#f76e40ff', '#599134ff', '#ffffffff', '#000000ff',
+  '#a5a5a5ff', '#75ab8cff', '#04f900ff', '#fa04faff',
+  '#6600ffff', '#006affff', '#7fcdc1ff', '#d99fd9ff',
+  '#6c67a3ff', '#945f5fff',
 ];
 
 function topNWithOthers(data, n = 10) {
@@ -79,8 +80,10 @@ const BarChart = ({ title, data }) => {
   );
 };
 
-export default function AnalyticsPage({ params }) {
-  const { shortCode } = params;
+export default function AnalyticsPage() {
+  const params = useParams();
+  const shortCode = params.shortCode;
+
   const [analytics, setAnalytics] = useState({
     country: [],
     browser: [],
@@ -99,10 +102,7 @@ export default function AnalyticsPage({ params }) {
       .catch(err => console.error(err));
   }, [shortCode]);
 
-  // Limit to top 10 + others for countries (large list)
   const countryData = topNWithOthers(analytics.country, 30);
-
-  // Other categories usually small, no trimming needed, but you can add topNWithOthers if you want
   const browserData = analytics.browser || [];
   const deviceData = analytics.device || [];
   const osData = analytics.os || [];
