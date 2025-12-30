@@ -65,6 +65,8 @@ export default function Navbar() {
                   Signup
                 </Link>
               </>
+
+              
             )}
           </div>
         </div>
@@ -72,3 +74,6 @@ export default function Navbar() {
     </>
   )
 }
+
+
+
