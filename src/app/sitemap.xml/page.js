@@ -5,7 +5,7 @@ export const runtime = "edge"; // optional, fast edge runtime
 export async function GET() {
   // Django API থেকে sitemap.xml fetch
   const res = await fetch(
-    "https://skkhandokar22.pythonanywhere.com/blog/sitemap.xml",
+    "https://skkhandokar22.pythonanywhere.com/api/sitemap.xml",
     {
       cache: "no-store", // always fresh
     }
