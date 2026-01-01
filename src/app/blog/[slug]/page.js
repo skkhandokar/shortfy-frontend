@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +15,32 @@ async function getBlog(slug) {
   if (!res.ok) return null;
   return res.json();
 }
+
+// Custom Markdown Components
+const markdownComponents = {
+  h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
+  h2: ({ children }) => <h2 className="text-3xl font-semibold my-3">{children}</h2>,
+  h3: ({ children }) => <h3 className="text-2xl font-semibold my-2">{children}</h3>,
+  p: ({ children }) => <p className="my-2">{children}</p>,
+  strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+  em: ({ children }) => <em className="italic">{children}</em>,
+  a: ({ href, children }) => (
+    <a
+      href={href}
+      className="text-indigo-600 hover:underline"
+      target="_blank"
+      rel="noreferrer"
+    >
+      {children}
+    </a>
+  ),
+  ul: ({ children }) => <ul className="list-disc ml-6 my-2">{children}</ul>,
+  ol: ({ children }) => <ol className="list-decimal ml-6 my-2">{children}</ol>,
+  li: ({ children }) => <li className="my-1">{children}</li>,
+  code: ({ children }) => (
+    <code className="bg-gray-200 dark:bg-gray-800 px-1 rounded">{children}</code>
+  ),
+};
 
 export default function BlogDetailClient({ params }) {
   const [blog, setBlog] = useState(null);
@@ -30,7 +58,6 @@ export default function BlogDetailClient({ params }) {
     fetchBlog();
   }, [params]);
 
-  // Scroll progress
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -62,21 +89,16 @@ export default function BlogDetailClient({ params }) {
     );
   }
 
-  // Define dark/light classes
   const bgClass = darkMode ? "bg-gray-900" : "bg-gray-50";
   const textClass = darkMode ? "text-gray-100" : "text-gray-900";
   const headerBg = darkMode ? "bg-gray-800" : "bg-white";
   const headerText = darkMode ? "text-gray-100" : "text-gray-900";
   const metaText = darkMode ? "text-gray-400" : "text-gray-500";
-  const proseInvert = darkMode ? "prose-invert" : "";
 
   return (
     <article className={`${bgClass} ${textClass} min-h-screen transition-colors duration-500 relative`}>
       {/* Scroll Progress */}
       <div className="fixed top-0 left-0 h-1 bg-indigo-500 z-50" style={{ width: `${scrollProgress}%` }} />
-
-      {/* Dark mode toggle */}
-      
 
       <div className="pt-24 max-w-4xl mx-auto px-4">
         {/* Header */}
@@ -86,8 +108,13 @@ export default function BlogDetailClient({ params }) {
             <div className={`flex flex-wrap items-center gap-4 text-sm ${metaText}`}>
               <span>📅 {new Date(blog.created_at).toLocaleDateString()}</span>
               <span>⏱ {blog.reading_time} min read</span>
-              {blog.is_featured && (
+              {blog.category && (
                 <span className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
+                  {blog.category}
+                </span>
+              )}
+              {blog.is_featured && (
+                <span className="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-medium">
                   Featured
                 </span>
               )}
@@ -128,11 +155,14 @@ export default function BlogDetailClient({ params }) {
             </Link>
           </div>
 
-          <div
-            className={`prose prose-lg max-w-none prose-headings:font-semibold prose-a:text-indigo-600 ${proseInvert}`}
-            style={{ marginLeft: 0 }}
-            dangerouslySetInnerHTML={{ __html: blog.html_content }}
-          />
+          {/* Markdown content */}
+          <div className={`prose max-w-none ${darkMode ? "prose-invert" : ""}`}>
+            {blog.content && (
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                {blog.content}
+              </ReactMarkdown>
+            )}
+          </div>
 
           {/* Tags */}
           {blog.tags && blog.tags.length > 0 && (
@@ -140,7 +170,9 @@ export default function BlogDetailClient({ params }) {
               {blog.tags.map((tag) => (
                 <span
                   key={tag}
-                  className={`${darkMode ? "bg-gray-700 text-gray-200" : "bg-gray-200 text-gray-700"} px-3 py-1 rounded-full text-sm`}
+                  className={`${
+                    darkMode ? "bg-gray-700 text-gray-200" : "bg-gray-200 text-gray-700"
+                  } px-3 py-1 rounded-full text-sm`}
                 >
                   #{tag}
                 </span>

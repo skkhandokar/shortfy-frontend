@@ -20,7 +20,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    // suppressHydrationWarning যোগ করা হয়েছে যাতে ব্রাউজার এক্সটেনশন জনিত এরর না আসে
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* ✅ Google AdSense Script */}
         <meta name="google-adsense-account" content="ca-pub-3914040246342551" />
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
           {/* </DarkModeProvider> */}
         </AuthProvider>
         <Analytics />
+        <SpeedInsights /> {/* আপনার ইমপোর্টে ছিল কিন্তু বডিতে ছিল না, তাই যোগ করে দিলাম */}
       </body>
     </html>
   );
