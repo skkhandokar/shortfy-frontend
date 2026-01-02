@@ -31,8 +31,7 @@ export default async function sitemap() {
   const staticPages = [
     { url: baseURL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${baseURL}/blog`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-    { url: `${baseURL}/signin`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
-    { url: `${baseURL}/signup`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
+    
     { url: `${baseURL}/about`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
     { url: `${baseURL}/contact`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
     { url: `${baseURL}/terms-and-condition`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
@@ -40,8 +39,7 @@ export default async function sitemap() {
     { url: `${baseURL}/shorturlcheck`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
     { url: `${baseURL}/features`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
     // dashboard এরিয়া সাধারণত সাইটম্যাপে না রাখাই ভালো, তবে চাইলে রাখতে পারেন
-    { url: `${baseURL}/custom-urls`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.6 },
-    { url: `${baseURL}/my-urls`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.6 },
+    ,
   ];
 
   return [...staticPages, ...blogUrls];
