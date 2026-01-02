@@ -13,9 +13,16 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 // Server-side metadata
 export const metadata = {
-  title: "Shortfy",
-  description:
-    "Instantly shorten, manage, and share your links with ease. Simple, fast, and powerful URL shortening.",
+  title: "Shortfy | The Best Free URL Shortener & Link Tracker",
+  description: "Create short, branded, and custom URLs for free. Track clicks, location, and device analytics with Shortfy.xyz, the original link shortener.",
+  keywords: "URL shortener, link tracker, custom shortcode, free link shortener, branded links, Shortfy",
+  openGraph: {
+    title: "Shortfy | Shorten Your Links Instantly",
+    description: "The original free tool to shorten URLs and track analytics.",
+    url: "https://shortfy.xyz",
+    siteName: "Shortfy",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {
