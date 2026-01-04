@@ -48,10 +48,13 @@ export default function MyURLsClient() {
       </h2>
 
       {loading ? (
-        <p className="text-center text-gray-500 animate-pulse">Loading...</p>
+        <p className="text-center text-gray-500 text-lg animate-pulse">Loading...</p>
       ) : urls.length === 0 ? (
-        <p className="text-center text-gray-500">
-          No URLs found yet.
+        <p className="text-center text-gray-500 text-lg">
+          No URLs found yet.{' '}
+          <Link href="/" className="text-indigo-600 hover:text-indigo-800 font-semibold transition duration-300">
+            Start Shortening!
+          </Link>
         </p>
       ) : (
         <>
