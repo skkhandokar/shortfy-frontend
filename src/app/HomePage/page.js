@@ -279,6 +279,7 @@ export const metadata = {
 
 export default function HomePage() {
   return (
+    
     <main className="min-h-screen bg-gradient-to-tr from-emerald-200 via-teal-100 to-orange-100 flex flex-col items-center pt-20">
       <h1 className="text-5xl font-extrabold text-center text-emerald-700 mb-8">
         🔗 Shortfy – Fast URL Shortener

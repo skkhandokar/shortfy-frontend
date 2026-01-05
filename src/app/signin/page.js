@@ -1,16 +1,5 @@
 
 
-// import AuthForm from "../components/AuthForm"
-
-// export default function SigninPage() {
-//   return (
-//     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-violet-100 py-10">
-//       <AuthForm type="signin" />
-//     </main>
-//   )
-// }
-
-
 
 
 
@@ -62,23 +51,3 @@ export default function SigninPage() {
 
 
 
-
-
-// import AuthForm from "../components/AuthForm"
-
-// export default function SigninPage() {
-//   return (
-//     <main className="relative min-h-screen overflow-hidden bg-[#f8fafc]">
-      
-//       {/* Gradient blobs */}
-//       <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-emerald-300/40 blur-3xl" />
-//       <div className="absolute top-1/3 -right-32 h-96 w-96 rounded-full bg-violet-300/40 blur-3xl" />
-//       <div className="absolute bottom-0 left-1/4 h-96 w-96 rounded-full bg-cyan-300/40 blur-3xl" />
-
-//       {/* Content */}
-//       <section className="relative z-10 flex min-h-screen items-center justify-center px-4">
-//         <AuthForm type="signin" />
-//       </section>
-//     </main>
-//   )
-// }
