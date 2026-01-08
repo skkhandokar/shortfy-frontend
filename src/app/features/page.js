@@ -81,7 +81,16 @@ Perfect for sharing on social media, business cards, or marketing campaigns.`,
 Enhances user control and branding potential.`
   },
   {
-    title: "📊 3. Advanced Link Analytics",
+  title: "📦 3. Bulk URL Shortener",
+  description: `Users can shorten multiple URLs at once.
+Just paste a list of long URLs or Upload CSV File and Shortfy will generate all short links instantly.
+Perfect for marketers, agencies, and large campaigns.`,
+  benefit: `Saves a huge amount of time.
+Ideal for bulk marketing, SEO campaigns, and link management at scale.`
+},
+
+  {
+    title: "📊 4. Advanced Link Analytics",
     description: `Get real-time insights for every link, including:
 • Total Clicks
 • Visitor Countries
@@ -91,35 +100,35 @@ Enhances user control and branding potential.`
 Great for marketing analysis and strategy optimization.`
   },
   {
-    title: "📱 4. QR Code Generation",
+    title: "📱 5. QR Code Generation",
     description: `Each shortened URL comes with a downloadable QR code.
 Ideal for posters, flyers, menus, and offline campaigns.`,
     benefit: `Easily share links offline.
 Convenient for businesses and event organizers.`
   },
   {
-    title: "🛡️ 5. Short URL Safety Checker",
+    title: "🛡️ 6. Short URL Safety Checker",
     description: `Users can check any Shortfy URL to see where it redirects before visiting.
 Helps prevent phishing, spam, or harmful redirections.`,
     benefit: `Builds trust with users.
 Encourages safer link sharing and clicking.`
   },
   {
-    title: "🚀 6. Fast & Free for All",
+    title: "🚀 7. Fast & Free for All",
     description: `Shortfy is completely free to use.
 No hidden charges, no premium walls — just fast and simple link shortening.`,
     benefit: `Attracts users with powerful free features.
 Encourages growth and sharing.`
   },
   {
-    title: "🎯 7. Authenticated Link Dashboard",
+    title: "🎯 8. Authenticated Link Dashboard",
     description: `Users who sign in can view all their created URLs.
 Filter, search, and analyze your links anytime from your dashboard.`,
     benefit: `Centralized link management.
 Saves time and improves productivity.`
   },
   {
-    title: "💡 8. Smart Custom Code Validation",
+    title: "💡 9. Smart Custom Code Validation",
     description: `Our system prevents users from choosing restricted shortcodes (like 6 or 7 characters).
 Ensures each custom shortcode is safe and usable.`,
     benefit: `Reduces errors and frustration.
