@@ -87,3 +87,11 @@ export default function BlogDetailClient({ params }) {
     </article>
   );
 }
+
+
+
+
+
+
+
+

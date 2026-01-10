@@ -1,19 +1,17 @@
-"use client";
+'use client';
 
-import Head from "next/head";
+import Head from 'next/head';
 
 export default function AboutPage() {
   return (
     <>
-      {/* Head + Meta + JSON-LD Schema */}
+      {/* Head + Meta + JSON-LD */}
       <Head>
-        <title>About Shortfy.xyz - Free Short URL Generator</title>
+        <title>About Shortfy.xyz - Free URL Shortener</title>
         <meta
           name="description"
-          content="Learn about Shortfy.xyz, a free URL shortener with built-in analytics, QR codes, and user dashboard. Clean, fast, and optional login."
+          content="Learn about Shortfy.xyz, a professional URL shortener with analytics, QR codes, optional login, clean UI, and fast performance."
         />
-
-        {/* JSON-LD Schema for AI and Rich Results */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -23,46 +21,29 @@ export default function AboutPage() {
               "name": "Shortfy",
               "url": "https://shortfy.xyz",
               "applicationCategory": "URL Shortener",
-              "description":
-                "Shortfy.xyz is a free URL shortener with built-in link analytics, QR codes, and optional login. Clean, fast, and ad-free.",
+              "description": "Shortfy.xyz is a free URL shortener with analytics, QR codes, optional login, clean UI, and fast performance.",
               "operatingSystem": "Web",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-              },
+              "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
               "faq": [
                 {
                   "@type": "Question",
                   "name": "Is Shortfy free?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes, basic URL shortening, analytics, and QR codes are free to use."
-                  }
+                  "acceptedAnswer": { "@type": "Answer", "text": "Yes, all basic features are free." }
                 },
                 {
                   "@type": "Question",
                   "name": "Do I need to sign up?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No, signup is optional. You can shorten URLs anonymously or create an account to track your links."
-                  }
+                  "acceptedAnswer": { "@type": "Answer", "text": "Signup is optional; you can shorten links anonymously or track them with an account." }
                 },
                 {
                   "@type": "Question",
                   "name": "Can I track analytics?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes, Shortfy provides click counts, country, device, and browser analytics for each link."
-                  }
+                  "acceptedAnswer": { "@type": "Answer", "text": "Yes, you can view clicks, countries, devices, and browsers." }
                 },
                 {
                   "@type": "Question",
                   "name": "Does Shortfy generate QR codes?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes, each short URL comes with a downloadable QR code."
-                  }
+                  "acceptedAnswer": { "@type": "Answer", "text": "Yes, every short URL has a downloadable QR code." }
                 }
               ]
             })
@@ -71,63 +52,82 @@ export default function AboutPage() {
       </Head>
 
       {/* Page Content */}
-      <main className="max-w-4xl mx-auto py-12 px-6 bg-gray-50">
-        <h1 className="text-4xl font-bold mb-6 mt-4 text-emerald-800">About Shortfy.xyz</h1>
+      <main className="min-h-screen bg-white text-black px-6 md:px-12 py-16 max-w-6xl mx-auto">
+        {/* Page Title */}
+        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-16 text-[#0A1A2F]">
+          About Shortfy.xyz
+        </h1>
 
-        <p className="text-gray-700 text-lg leading-relaxed mb-4">
-          At <strong>Shortfy.xyz</strong>, we believe in simplicity, speed, and freedom. Our mission is to make sharing and managing links easier for everyone—from casual users to businesses and content creators.
-        </p>
+        {/* Mission Section */}
+        <section className="mb-12">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 shadow-md">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-[#0A1A2F]">
+              Our Mission
+            </h2>
+            <p className="text-lg md:text-xl leading-relaxed mb-4">
+              At <strong>Shortfy.xyz</strong>, we believe in simplicity, speed, and freedom. Our mission is to make sharing and managing links easier for everyone—from casual users to businesses and content creators.
+            </p>
+            <p className="text-lg md:text-xl leading-relaxed">
+              Shortfy.xyz is a free and easy-to-use URL shortening platform that lets anyone create short, trackable, and customizable links in seconds. Share on social media, messaging apps, or campaigns with clean, branded links.
+            </p>
+          </div>
+        </section>
 
-        <p className="text-gray-700 text-lg leading-relaxed mb-4">
-          Shortfy.xyz is a free and easy-to-use URL shortening platform that lets anyone create short, trackable, and customizable links in seconds. Whether you're sharing on social media, messaging apps, or running campaigns, our tool helps you clean up long, ugly URLs and replace them with short, branded links that look professional and perform better.
-        </p>
+        {/* Features Section */}
+        <section className="mb-12">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 shadow-md">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-[#0A1A2F]">🔧 Key Features</h2>
+            <ul className="list-disc pl-6 space-y-3 text-lg md:text-xl">
+              <li>Unlimited URL shortening — no restrictions</li>
+              <li>Custom short links (e.g., shortfy.xyz/yourname)</li>
+              <li>Bulk Shortening with One Click</li>
+              <li>Anonymous or authenticated shortening options</li>
+              <li>Downloadable QR codes for each link</li>
+              <li>User dashboard to manage and view your links</li>
+              <li>Link analytics: clicks, devices, countries, browsers</li>
+            </ul>
+          </div>
+        </section>
 
-        <h2 className="text-2xl font-semibold text-emerald-700 mt-8 mb-4">🔧 What We Offer</h2>
-        <ul className="list-disc pl-6 text-gray-700 text-lg space-y-2">
-          <li>Unlimited URL shortening — no restrictions or limits</li>
-          <li>Custom short links (e.g., shortfy.xyz/yourname)</li>
-          <li>Anonymous and authenticated shortening options</li>
-          <li>Each shortened URL comes with a downloadable QR code</li>
-          <li>User dashboard to manage and view your links</li>
-          <li>Link analytics (clicks, devices, countries, browsers)</li>
-        </ul>
+        {/* How It Works Section */}
+        <section className="mb-12">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 shadow-md">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-[#0A1A2F]">🚀 How Shortfy Works</h2>
+            <ol className="list-decimal list-inside text-lg md:text-xl space-y-2">
+              <li>Go to <a href="https://shortfy.xyz" className="text-[#0A1A2F] underline">Shortfy.xyz</a></li>
+              <li>Paste your long URL</li>
+              <li>Click <strong>Shorten</strong></li>
+              <li>Share your short link anywhere</li>
+              <li>View analytics for each link in your dashboard</li>
+            </ol>
+          </div>
+        </section>
 
-        <h2 className="text-2xl font-semibold text-emerald-700 mt-8 mb-4">🌍 Why We Built It</h2>
-        <p className="text-gray-700 text-lg leading-relaxed mb-4">
-          We noticed that most URL shorteners are either filled with ads, limit functionality, or force user registration. We wanted to change that. Shortfy.xyz is designed to be clean, ad-free, fast, and optional for login—so anyone can shorten links freely, anytime, without friction.
-        </p>
+        {/* Why Section */}
+        <section className="mb-12">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 shadow-md">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-[#0A1A2F]">🌍 Why We Built It</h2>
+            <p className="text-lg md:text-xl leading-relaxed mb-4">
+              Most URL shorteners are ad-filled, limited, or force signup. Shortfy.xyz is clean, fast, ad-free, and login is optional.
+            </p>
+            <p className="text-lg md:text-xl leading-relaxed">
+              Built in <strong>Bangladesh 🇧🇩</strong> and used globally 🌍.
+            </p>
+          </div>
+        </section>
 
-        <p className="text-gray-700 text-lg leading-relaxed mb-2">
-          Built in <strong>Bangladesh 🇧🇩</strong>, used around the world 🌍.
-        </p>
-
-        {/* Added HomePage Content (How it works + FAQ) */}
-        <h2 className="text-2xl font-semibold mt-8 mb-2">How Shortfy Works</h2>
-        <ol className="list-decimal list-inside mb-4 text-gray-700 text-lg space-y-1">
-          <li>Go to <a href="https://shortfy.xyz" className="text-blue-600 underline">Shortfy.xyz</a></li>
-          <li>Paste your long URL</li>
-          <li>Click <strong>Shorten</strong></li>
-          <li>Share your short link anywhere</li>
-          <li>View analytics for each link in your dashboard</li>
-        </ol>
-
-        <h2 className="text-2xl font-semibold mb-2">Key Analytics Features</h2>
-        <ul className="list-disc list-inside mb-4 text-gray-700 text-lg space-y-1">
-          <li>Total clicks per link</li>
-          <li>Unique visitors</li>
-          <li>Country-level data</li>
-          <li>Device type (Desktop/Mobile)</li>
-          <li>Browser & Operating System</li>
-          <li>Time-based stats: 24h, 7d, 30d</li>
-        </ul>
-
-        <h2 className="text-2xl font-semibold mb-2">FAQ</h2>
-        <div className="mb-4 text-gray-700 text-lg space-y-2">
-          <p><strong>Q: Is Shortfy free?</strong><br/>A: Yes, basic link shortening and analytics are completely free.</p>
-          <p><strong>Q: Can I use Shortfy without signing up?</strong><br/>A: Yes, no account is needed for basic shortening and analytics.</p>
-          <p><strong>Q: Does Shortfy track location?</strong><br/>A: Yes, country-level analytics are provided for each link.</p>
-          <p><strong>Q: Can I generate QR codes?</strong><br/>A: Yes, every short link can generate a QR code for sharing.</p>
-        </div>
+        {/* FAQ Section */}
+        <section>
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 shadow-md">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-[#0A1A2F]">❓ FAQ</h2>
+            <div className="space-y-4 text-lg md:text-xl">
+              <p><strong>Q: Is Shortfy free?</strong><br/>A: Yes, all basic features are free to use.</p>
+              <p><strong>Q: Do I need to sign up?</strong><br/>A: Signup is optional; shorten links anonymously or track them with an account.</p>
+              <p><strong>Q: Can I track analytics?</strong><br/>A: Yes, analytics include clicks, country, device, and browser info.</p>
+              <p><strong>Q: Does Shortfy generate QR codes?</strong><br/>A: Yes, every short URL comes with a downloadable QR code.</p>
+            </div>
+          </div>
+        </section>
       </main>
     </>
   );

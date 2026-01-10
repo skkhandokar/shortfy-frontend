@@ -71,7 +71,7 @@ export default function CustomUrls() {
   const handleDeleteShortcode = async () => {
     const token = localStorage.getItem('token')
     if (!token) {
-      setDeleteError('⚠️ Login required')
+      setDeleteError('Login required')
       return
     }
 
@@ -96,10 +96,10 @@ export default function CustomUrls() {
         setUrls(prev => prev.filter(url => url.id !== id))
         setConfirmDelete(null)
       } else {
-        setDeleteError('❌ Failed to delete shortcode')
+        setDeleteError('Failed to delete')
       }
     } catch {
-      setDeleteError('❌ Failed to delete shortcode')
+      setDeleteError('Failed to delete')
     }
   }
 
@@ -115,146 +115,206 @@ export default function CustomUrls() {
 
   const handleShare = (shortUrl) => {
     if (navigator.share) {
-      navigator.share({ title: 'Shortfy URL', text: 'Check out this short URL:', url: shortUrl })
-        .catch(err => console.log('Share failed:', err))
+      navigator.share({
+        title: 'Shortfy URL',
+        text: 'Check this short URL',
+        url: shortUrl,
+      })
     } else {
       navigator.clipboard.writeText(shortUrl)
-      alert('URL copied to clipboard for sharing!')
+      alert('Link copied for sharing')
     }
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h2 className="text-4xl font-bold text-indigo-700 mb-10 text-center">
-        🚀 My Shortened Links
-      </h2>
+    <div className="max-w-5xl mx-auto p-4 md:p-6 bg-white">
+      <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 text-center">
+        My Shortened Links
+      </h1>
 
-      <div className="bg-gradient-to-r from-emerald-400 via-teal-400 py-12 mb-10 text-center text-white rounded-2xl shadow-lg">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-          🎯 Your Custom Short URLs
-        </h1>
-        <p className="text-lg md:text-xl text-indigo-100">
-          Manage and track your custom shortened links in one place.
+      <div className="bg-slate-900 text-white rounded-xl p-8 mb-10 text-center">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-2">
+          Manage Your Custom URLs
+        </h2>
+        <p className="text-slate-300">
+          Track, share & manage your short links professionally
         </p>
       </div>
 
       {loading ? (
-        <p className="text-center text-gray-500 animate-pulse">Loading...</p>
-      ) : urls.length === 0 ? (
-        <p className="text-center text-gray-500">
-          No URLs found yet.{' '}
-          <Link href="/" className="text-indigo-600 font-semibold">Start Shortening!</Link>
-        </p>
+        <p className="text-center text-slate-500">Loading...</p>
       ) : (
         <>
           <div className="grid gap-6">
             {currentUrls.map(url => (
-              <Card key={url.id} className="bg-white border rounded-2xl shadow-lg hover:shadow-2xl transition">
+              <Card
+                key={url.id}
+                className="border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition"
+              >
                 <CardContent className="flex flex-col sm:flex-row gap-6">
-                  <Avatar src={getFavicon(url.original_url)} variant="rounded" sx={{ width: 48, height: 48 }} />
+                  <Avatar
+                    src={getFavicon(url.original_url)}
+                    variant="rounded"
+                    sx={{ width: 44, height: 44 }}
+                  />
 
                   <div className="flex-1">
-                    <Typography variant="subtitle2" className="text-gray-500 uppercase mb-1">
+                    <Typography className="text-xs text-slate-500 uppercase mb-2">
                       Short URLs
                     </Typography>
 
-                    <div className="flex flex-col gap-2">
-                      {url.custom_shortcodes.map(code => {
-                        const shortUrl = `${origin}/${code}`
-                        const isConfirming = confirmDelete?.id === url.id && confirmDelete?.code === code
+                    {url.custom_shortcodes.map(code => {
+                      const shortUrl = `${origin}/${code}`
+                      const isConfirming =
+                        confirmDelete?.id === url.id &&
+                        confirmDelete?.code === code
 
-                        return (
-                          <div key={code}>
-                            <div className="flex flex-wrap items-center gap-2">
-                              <MuiLink href={shortUrl} target="_blank" className="text-indigo-600 font-bold break-all">
-                                {shortUrl}
-                              </MuiLink>
+                      return (
+                        <div key={code} className="mb-4">
+                          <div className="flex flex-wrap gap-2 items-center">
+                            <MuiLink
+                              href={shortUrl}
+                              target="_blank"
+                              className="text-indigo-700 font-medium break-all"
+                            >
+                              {shortUrl}
+                            </MuiLink>
 
-                              <Button size="small" variant="outlined" startIcon={<ContentCopyIcon />}
-                                onClick={() => {
-                                  navigator.clipboard.writeText(shortUrl)
-                                  setCopiedCode(code)
-                                  setTimeout(() => setCopiedCode(''), 2000)
-                                }}>
-                                Copy
-                              </Button>
+                            <Button
+                              size="small"
+                              variant="outlined"
+                              startIcon={<ContentCopyIcon />}
+                              onClick={() => {
+                                navigator.clipboard.writeText(shortUrl)
+                                setCopiedCode(code)
+                                setTimeout(() => setCopiedCode(''), 2000)
+                              }}
+                            >
+                              Copy
+                            </Button>
 
-                              <Button size="small" variant="outlined" startIcon={<ShareIcon />}
-                                onClick={() => handleShare(shortUrl)}>
-                                Share
-                              </Button>
+                            <Button
+                              size="small"
+                              variant="outlined"
+                              startIcon={<ShareIcon />}
+                              onClick={() => handleShare(shortUrl)}
+                            >
+                              Share
+                            </Button>
 
-                              {copiedCode === code && (
-                                <span className="text-green-600 text-sm">Copied!</span>
-                              )}
+                            <Button
+                              size="small"
+                              variant="outlined"
+                              startIcon={<QrCodeIcon />}
+                              onClick={() => {
+                                setQrUrl(shortUrl)
+                                setOpenQrModal(true)
+                              }}
+                            >
+                              QR Code
+                            </Button>
 
-                              <Button size="small" variant="outlined" startIcon={<QrCodeIcon />}
-                                onClick={() => { setQrUrl(shortUrl); setOpenQrModal(true) }}>
-                                QR
-                              </Button>
+                            <Button
+                              size="small"
+                              variant="outlined"
+                              startIcon={<AnalyticsIcon />}
+                              onClick={() =>
+                                window.open(`/analytics/${code}`, '_blank')
+                              }
+                            >
+                              Analytics
+                            </Button>
 
-                              <Button size="small" variant="outlined" color="secondary" startIcon={<AnalyticsIcon />}
-                                onClick={() => window.open(`/analytics/${code}`, '_blank')}>
-                                Analytics
-                              </Button>
-
-                              <Button size="small" variant="outlined" color="error" startIcon={<DeleteIcon />}
-                                onClick={() => { setConfirmDelete({ id: url.id, code }); setDeleteError('') }}>
-                                Delete
-                              </Button>
-                            </div>
-
-                            {isConfirming && (
-                              <div className="mt-2 p-3 rounded-lg bg-red-100 border border-red-300 animate-fadeIn">
-                                <p className="text-sm text-red-800 mb-2">
-                                  Are you sure you want to delete this shortcode?
-                                </p>
-                                <div className="flex gap-2">
-                                  <Button size="small" variant="contained" color="error" onClick={handleDeleteShortcode}>Yes</Button>
-                                  <Button size="small" variant="outlined" onClick={() => setConfirmDelete(null)}>No</Button>
-                                </div>
-                                {deleteError && (
-                                  <p className="text-sm text-red-600 mt-2">{deleteError}</p>
-                                )}
-                              </div>
-                            )}
+                            <Button
+                              size="small"
+                              variant="outlined"
+                              color="error"
+                              startIcon={<DeleteIcon />}
+                              onClick={() =>
+                                setConfirmDelete({ id: url.id, code })
+                              }
+                            >
+                              Delete
+                            </Button>
                           </div>
-                        )
-                      })}
-                    </div>
 
-                    <Typography variant="subtitle2" className="text-gray-500 uppercase mt-4">Original URL</Typography>
-                    <Typography variant="body2" className="text-gray-400 break-words">{url.original_url}</Typography>
+                          {copiedCode === code && (
+                            <p className="text-xs text-green-600 mt-1">
+                              ✔ Copied to clipboard
+                            </p>
+                          )}
 
-                    <Typography variant="body2" className="mt-3 text-sm text-gray-500">
-                      📊 Clicks: <span className="text-indigo-700 font-bold">{url.clicks}</span>
-                    </Typography>
+                          {isConfirming && (
+                            <div className="mt-2 bg-slate-100 border border-slate-300 p-3 rounded-lg">
+                              <p className="text-sm text-slate-700 mb-2">
+                                Are you sure you want to delete this link?
+                              </p>
+                              <div className="flex gap-2">
+                                <Button
+                                  size="small"
+                                  color="error"
+                                  variant="contained"
+                                  onClick={handleDeleteShortcode}
+                                >
+                                  Yes, Delete
+                                </Button>
+                                <Button
+                                  size="small"
+                                  variant="outlined"
+                                  onClick={() => setConfirmDelete(null)}
+                                >
+                                  Cancel
+                                </Button>
+                              </div>
+                              {deleteError && (
+                                <p className="text-xs text-red-600 mt-2">
+                                  {deleteError}
+                                </p>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+
+                    <p className="text-xs text-slate-500 mt-4">Original URL</p>
+                    <p className="text-sm text-slate-700 break-words">
+                      {url.original_url}
+                    </p>
+
+                    <p className="text-sm mt-2 text-slate-600">
+                      Clicks:{' '}
+                      <span className="font-semibold text-slate-900">
+                        {url.clicks}
+                      </span>
+                    </p>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-
-          {/* Pagination */}
-          <div className="flex justify-center items-center mt-8 gap-4">
-            <Button variant="contained" disabled={currentPage === 1} onClick={() => setCurrentPage(p => p - 1)}>Previous</Button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <Button variant="contained" disabled={currentPage === totalPages} onClick={() => setCurrentPage(p => p + 1)}>Next</Button>
-          </div>
         </>
       )}
 
-      {/* QR Modal */}
+      {/* QR MODAL */}
       <Modal open={openQrModal} onClose={() => setOpenQrModal(false)}>
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl p-6 shadow-xl w-80 text-center">
-          <h2 className="text-xl font-bold mb-4 text-gray-700">QR Code</h2>
+        <div className="bg-white rounded-xl p-6 w-80 shadow-xl mx-auto mt-40 text-center">
+          <h2 className="text-lg font-semibold text-slate-800 mb-4">
+            QR Code
+          </h2>
           <div ref={qrRef} className="flex justify-center">
-            <QRCodeCanvas value={qrUrl} size={200} />
+            <QRCodeCanvas value={qrUrl} size={180} />
           </div>
-          <p className="text-sm text-gray-500 mt-4 break-all">{qrUrl}</p>
-          <div className="mt-4 flex justify-center gap-3">
-            <Button onClick={downloadQrCode} variant="outlined">Download</Button>
-            <Button onClick={() => setOpenQrModal(false)} variant="contained">Close</Button>
+          <p className="text-xs text-slate-500 mt-3 break-all">
+            {qrUrl}
+          </p>
+          <div className="flex justify-center gap-3 mt-4">
+            <Button variant="outlined" onClick={downloadQrCode}>
+              Download
+            </Button>
+            <Button variant="contained" onClick={() => setOpenQrModal(false)}>
+              Close
+            </Button>
           </div>
         </div>
       </Modal>
