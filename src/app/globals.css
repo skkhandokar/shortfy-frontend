@@ -16,45 +16,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* =========================
-   Animations (Custom)
-   ========================= */
-@layer utilities {
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* React Native style fade */
-  .animate-fadeIn {
-    animation: fadeIn 0.2s ease-in-out;
-  }
-
-  /* Optional longer fade */
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-  }
+html {
+  color-scheme: light;
 }
+
