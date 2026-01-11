@@ -16,13 +16,12 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 export default function FeaturesPage() {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const featureRefs = useRef([]); // refs for auto-scroll
+  const featureRefs = useRef([]);
 
   const handleChange = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  // Filter features based on search
   const filteredFeatures = features.filter(
     (feature) =>
       feature.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -30,19 +29,17 @@ export default function FeaturesPage() {
       feature.benefit.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Auto-scroll to first matching feature
   useEffect(() => {
     if (searchTerm && filteredFeatures.length > 0) {
       const firstIndex = features.indexOf(filteredFeatures[0]);
       const ref = featureRefs.current[firstIndex];
       if (ref) {
         ref.scrollIntoView({ behavior: "smooth", block: "center" });
-        setExpandedIndex(firstIndex); // open the first match
+        setExpandedIndex(firstIndex);
       }
     }
   }, [searchTerm]);
 
-  // Highlight matched text with subtle animation
   const highlightText = (text) => {
     if (!searchTerm) return text;
     const regex = new RegExp(`(${searchTerm})`, "gi");
@@ -61,7 +58,15 @@ export default function FeaturesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-white via-gray-100 to-slate-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 flex justify-center p-6 transition-colors duration-500 light">
+    <div
+      className="min-h-screen flex justify-center p-6 transition-colors duration-500
+      bg-gradient-to-tr from-white via-gray-100 to-slate-100
+      dark:from-gray-900 dark:via-gray-800 dark:to-gray-700"
+      style={{
+        colorScheme: "light dark",
+        WebkitTextSizeAdjust: "100%",
+      }}
+    >
       <Container maxWidth="md">
         <Box className="bg-white dark:bg-gray-900 shadow-lg rounded-3xl p-8 md:p-10 transition-colors duration-500">
           <Typography
@@ -71,7 +76,7 @@ export default function FeaturesPage() {
             🌟 All Features of Shortfy
           </Typography>
 
-          {/* Sticky Search Bar */}
+          {/* Sticky Search */}
           <Box className="mb-6 sticky top-0 z-10 bg-white dark:bg-gray-900 p-2 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
             <TextField
               fullWidth
@@ -79,9 +84,9 @@ export default function FeaturesPage() {
               placeholder="Search features..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-white dark:bg-gray-800 rounded-lg"
-              InputProps={{
-                className: "text-gray-800 dark:text-gray-200",
+              sx={{
+                input: { color: "inherit" },
+                fieldset: { borderColor: "rgba(0,0,0,0.2)" },
               }}
             />
           </Box>
@@ -90,55 +95,54 @@ export default function FeaturesPage() {
 
           <Box className="space-y-4">
             {filteredFeatures.length > 0 ? (
-              filteredFeatures.map((feature, index) => {
-                const originalIndex = features.indexOf(feature); // original index for ref
+              filteredFeatures.map((feature) => {
+                const originalIndex = features.indexOf(feature);
                 return (
                   <Accordion
                     key={originalIndex}
                     expanded={expandedIndex === originalIndex}
                     onChange={() => handleChange(originalIndex)}
-                    className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-                    ref={(el) => (featureRefs.current[originalIndex] = el)}
+                    ref={(el) =>
+                      (featureRefs.current[originalIndex] = el)
+                    }
+                    sx={{
+                      backgroundColor: "inherit",
+                      color: "inherit",
+                    }}
+                    className="border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
                   >
                     <AccordionSummary
                       expandIcon={
                         <ExpandMoreIcon
                           className={`transition-transform duration-300 ${
                             expandedIndex === originalIndex
-                              ? "text-cyan-400 dark:text-cyan-300 rotate-180"
+                              ? "text-cyan-400 rotate-180"
                               : "text-navy dark:text-cyan-400"
                           }`}
                         />
                       }
-                      aria-controls={`panel${originalIndex}-content`}
-                      id={`panel${originalIndex}-header`}
                       className="px-5 py-3"
                     >
                       <CheckCircleIcon
-                        className={`mr-3 transition-colors duration-300 ${
+                        className={`mr-3 ${
                           expandedIndex === originalIndex
-                            ? "text-cyan-400 dark:text-cyan-300"
+                            ? "text-cyan-400"
                             : "text-navy dark:text-cyan-400"
                         }`}
                       />
-                      <Typography
-                        className={`font-bold transition-colors duration-300 ${
-                          expandedIndex === originalIndex
-                            ? "text-cyan-400 dark:text-cyan-300"
-                            : "text-navy dark:text-cyan-300"
-                        }`}
-                      >
+                      <Typography className="font-bold">
                         {highlightText(feature.title)}
                       </Typography>
                     </AccordionSummary>
+
                     <AccordionDetails className="px-5 pb-4">
-                      <Typography className="text-gray-800 dark:text-gray-200 whitespace-pre-line mb-3 transition-colors duration-300">
+                      <Typography className="mb-3 whitespace-pre-line">
                         {highlightText(feature.description)}
                       </Typography>
-                      <Typography className="font-semibold text-navy dark:text-cyan-300 transition-colors duration-300">
+                      <Typography className="font-semibold text-navy dark:text-cyan-300">
                         ✅ Benefit:
                       </Typography>
-                      <Typography className="text-gray-800 dark:text-gray-200 whitespace-pre-line transition-colors duration-300">
+                      <Typography className="whitespace-pre-line">
                         {highlightText(feature.benefit)}
                       </Typography>
                     </AccordionDetails>
@@ -146,7 +150,7 @@ export default function FeaturesPage() {
                 );
               })
             ) : (
-              <Typography className="text-center text-gray-500 dark:text-gray-400 mt-4">
+              <Typography className="text-center text-gray-500 mt-4">
                 No features found.
               </Typography>
             )}
@@ -157,86 +161,52 @@ export default function FeaturesPage() {
   );
 }
 
-// Tailwind animation (add in globals.css or tailwind config)
-/*
-.animate-fadeHighlight {
-  @apply transition duration-500 ease-in-out;
-  animation: fadeHighlight 1.2s ease-in-out;
-}
-@keyframes fadeHighlight {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-*/
-
-// Features Data
+/* Features Data */
 const features = [
   {
     title: "🔐 1. Signup / Signin System",
     description: `Users can create an account to manage their shortened links.
-Logged-in users get access to personal dashboards.
-Allows saving, editing, and tracking all URLs in one place.`,
-    benefit: `Builds user trust and long-term engagement.
-Enables personalized analytics and dashboard experience.`
+Logged-in users get access to personal dashboards.`,
+    benefit: `Builds user trust and engagement.`,
   },
   {
     title: "🔗 2. Custom Short Links",
-    description: `Users can create branded, memorable short URLs by setting their own shortcode.
-Perfect for sharing on social media, business cards, or marketing campaigns.`,
-    benefit: `Increases trust and click-through rates.
-Enhances user control and branding potential.`
+    description: `Create branded, memorable short URLs.`,
+    benefit: `Improves branding and CTR.`,
   },
   {
     title: "📦 3. Bulk URL Shortener",
-    description: `Users can shorten multiple URLs at once.
-Just paste a list of long URLs or Upload CSV File and Shortfy will generate all short links instantly.
-Perfect for marketers, agencies, and large campaigns.`,
-    benefit: `Saves a huge amount of time.
-Ideal for bulk marketing, SEO campaigns, and link management at scale.`
+    description: `Shorten multiple URLs at once.`,
+    benefit: `Saves time for marketers.`,
   },
   {
     title: "📊 4. Advanced Link Analytics",
-    description: `Get real-time insights for every link, including:
-• Total Clicks
-• Visitor Countries
-• Device Type (mobile, tablet, desktop)
-• Browser Details`,
-    benefit: `Lets users understand their audience better.
-Great for marketing analysis and strategy optimization.`
+    description: `Clicks, country, device, browser tracking.`,
+    benefit: `Better marketing decisions.`,
   },
   {
     title: "📱 5. QR Code Generation",
-    description: `Each shortened URL comes with a downloadable QR code.
-Ideal for posters, flyers, menus, and offline campaigns.`,
-    benefit: `Easily share links offline.
-Convenient for businesses and event organizers.`
+    description: `QR codes for every short link.`,
+    benefit: `Offline sharing made easy.`,
   },
   {
     title: "🛡️ 6. Short URL Safety Checker",
-    description: `Users can check any Shortfy URL to see where it redirects before visiting.
-Helps prevent phishing, spam, or harmful redirections.`,
-    benefit: `Builds trust with users.
-Encourages safer link sharing and clicking.`
+    description: `Preview destination before visit.`,
+    benefit: `Prevents phishing.`,
   },
   {
-    title: "🚀 7. Fast & Free for All",
-    description: `Shortfy is completely free to use.
-No hidden charges, no premium walls — just fast and simple link shortening.`,
-    benefit: `Attracts users with powerful free features.
-Encourages growth and sharing.`
+    title: "🚀 7. Fast & Free",
+    description: `Completely free URL shortening.`,
+    benefit: `User growth.`,
   },
   {
-    title: "🎯 8. Authenticated Link Dashboard",
-    description: `Users who sign in can view all their created URLs.
-Filter, search, and analyze your links anytime from your dashboard.`,
-    benefit: `Centralized link management.
-Saves time and improves productivity.`
+    title: "🎯 8. Authenticated Dashboard",
+    description: `Manage all URLs in one place.`,
+    benefit: `Productivity boost.`,
   },
   {
-    title: "💡 9. Smart Custom Code Validation",
-    description: `Our system prevents users from choosing restricted shortcodes (like 6 or 7 characters).
-Ensures each custom shortcode is safe and usable.`,
-    benefit: `Reduces errors and frustration.
-Improves user experience during link creation.`
-  }
+    title: "💡 9. Smart Code Validation",
+    description: `Restricted shortcode prevention.`,
+    benefit: `Better UX.`,
+  },
 ];
