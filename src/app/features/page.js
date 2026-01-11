@@ -61,7 +61,7 @@ export default function FeaturesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-white via-gray-100 to-slate-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 flex justify-center p-6 transition-colors duration-500">
+    <div className="min-h-screen bg-gradient-to-tr from-white via-gray-100 to-slate-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 flex justify-center p-6 transition-colors duration-500 light">
       <Container maxWidth="md">
         <Box className="bg-white dark:bg-gray-900 shadow-lg rounded-3xl p-8 md:p-10 transition-colors duration-500">
           <Typography
