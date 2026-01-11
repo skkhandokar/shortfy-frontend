@@ -56,7 +56,7 @@ export default function AuthFormSignup({ type = "signup" }) {
       
       {/* Brand */}
       <div className="mb-8 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 text-white font-bold shadow-lg">
+        <div className="mx-auto mb-4 mt-8 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 text-white font-bold shadow-lg">
           S
         </div>
         <h2 className="text-3xl font-extrabold text-gray-900">

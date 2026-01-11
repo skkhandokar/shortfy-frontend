@@ -38,7 +38,8 @@ export default function CheckShortURL() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen md:min-h-screen bg-gray-100 flex flex-col items-center justify-start md:justify-center px-4 pt-20 md:pt-0">
+
       <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl p-8 space-y-6">
         {/* SEO-Friendly Heading */}
         <h1 className="text-3xl font-extrabold text-center text-gray-900 tracking-wide">

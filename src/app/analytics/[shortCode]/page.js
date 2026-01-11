@@ -1054,10 +1054,27 @@ ChartJS.register(
 );
 
 const COLORS = [
+  '#42a5f5', '#f44336',
+  '#008080', '#335871ff', '#b43131ff', '#df3b04ff', '#cf7acfff',
+  '#dca593ff', '#081b10ff', '#c6a3c1ff','#800080', '#4c1e0eff', '#2E8B57',
   '#FF6384', '#89a5b7ff', '#FFCE56',
   '#66bb6a', '#ab47bc', '#ffa726',
-  '#42a5f5', '#f44336',
+  '#42a5f5', '#f44336', '#ca6379ff', '#466376ff', '#716b5cff', '#17d375ff',
+   '#aa67aa8d',
+  '#f76e40ff', '#599134ff', '#ffffffff', '#000000ff',
+  '#a5a5a5ff', '#75ab8cff', '#04f900ff', '#fa04faff',
+  '#6600ffff', '#006affff', '#7fcdc1ff', '#d99fd9ff',
+  '#6c67a3ff', '#945f5fff',
+
+   '#FF6384', '#89a5b7ff', '#FFCE56',
+  '#66bb6a', '#ab47bc', '#ffa726',
+  '#8d6e63', 
 ];
+
+
+
+
+ 
 
 /* ---------------- HELPERS ---------------- */
 
