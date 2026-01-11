@@ -38,43 +38,44 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen flex flex-col items-center pt-28 px-4 bg-white dark:bg-[#0A1A2F]">
+    <main className="min-h-screen flex flex-col items-center pt-28 px-4 bg-white">
       
       {/* Hero Section */}
       <section className="text-center max-w-3xl">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-[#0A1A2F] dark:text-white mb-4 leading-tight">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-[#0A1A2F] mb-4 leading-tight">
           🔗 Shortfy – Fast, Reliable & Smart URL Shortener
         </h1>
 
-        <p className="text-slate-700 dark:text-slate-300 text-lg sm:text-xl mb-8 leading-relaxed">
-          Instantly shorten any URL and share it anywhere. Track clicks, devices, browsers, and countries. 
-          Customize your links with branded shortcodes and generate QR codes for seamless sharing.
+        <p className="text-slate-700 text-lg sm:text-xl mb-8 leading-relaxed">
+          Instantly shorten any URL and share it anywhere. Track clicks, devices,
+          browsers, and countries. Customize your links with branded shortcodes
+          and generate QR codes for seamless sharing.
         </p>
 
         {/* Primary CTA */}
         <a
           href="#shortener"
-          className="inline-block bg-[#0A1A2F] dark:bg-white text-white dark:text-[#0A1A2F] font-semibold px-8 py-4 rounded-full shadow-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+          className="inline-block bg-[#0A1A2F] text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:bg-slate-800 transition-colors"
           aria-label="Go to URL Shortener"
         >
           Shorten Your URL 🚀
         </a>
       </section>
 
-      {/* URL Shortener Form Section */}
+      {/* URL Shortener Form */}
       <section id="shortener" className="mt-12 w-full max-w-xl">
         <ShortenerForm />
       </section>
 
-      {/* Optional Trust Signals */}
-      <section className="mt-16  mb-4 text-center text-slate-700 dark:text-slate-300 max-w-2xl space-y-2 text-sm">
+      {/* Trust Signals */}
+      <section className="mt-16 mb-4 text-center text-slate-700 max-w-2xl space-y-2 text-sm">
         <p>Trusted by hundreds of users worldwide 🌎</p>
         <p>Secure, fast, and AI-friendly URL shortening service</p>
-        <p>100% uptime & responsive on mobile and desktop devices </p>
-        <p>                         </p>
-        <p>                         </p>
+        <p>100% uptime & responsive on mobile and desktop devices</p>
+        <p>   </p>
+        <p> 
+        </p>
       </section>
     </main>
   );
 }
-

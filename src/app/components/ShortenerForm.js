@@ -150,8 +150,6 @@
 
 
 
-
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -240,8 +238,7 @@ export default function ShortenerForm() {
   };
 
   return (
-    <Box className="w-full max-w-xl mx-auto bg-white dark:bg-[#08192E] border border-slate-200 dark:border-slate-700 rounded-3xl shadow-xl p-8 sm:p-10">
-      
+    <Box className="w-full max-w-xl mx-auto bg-white border border-slate-200 rounded-3xl shadow-xl p-8 sm:p-10">
       <form onSubmit={handleSubmit} className="space-y-6">
         <TextField
           fullWidth
@@ -290,8 +287,8 @@ export default function ShortenerForm() {
         <>
           <Divider className="my-8" />
 
-          <Box className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0F2745] text-center space-y-3 border border-slate-200 dark:border-slate-600">
-            <Typography variant="h6" className="text-[#0A1A2F] dark:text-white">
+          <Box className="p-5 rounded-2xl bg-slate-50 text-center space-y-3 border border-slate-200">
+            <Typography variant="h6" className="text-[#0A1A2F]">
               Your Short Link
             </Typography>
 
@@ -300,7 +297,7 @@ export default function ShortenerForm() {
                 href={shortUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-slate-700 dark:text-slate-200 break-all"
+                className="font-semibold text-slate-700 break-all"
               >
                 {shortUrl}
               </a>
@@ -342,3 +339,4 @@ export default function ShortenerForm() {
     </Box>
   );
 }
+
