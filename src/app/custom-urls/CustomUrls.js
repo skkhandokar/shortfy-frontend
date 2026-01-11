@@ -10,8 +10,12 @@ import {
   Avatar,
   Button,
   Modal,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from '@mui/material'
-import Link from 'next/link'
 import { QRCodeCanvas } from 'qrcode.react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import ShareIcon from '@mui/icons-material/Share'
@@ -21,6 +25,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 export default function CustomUrls() {
   const [urls, setUrls] = useState([])
+  const [filteredUrls, setFilteredUrls] = useState([])
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [origin, setOrigin] = useState('')
@@ -29,6 +34,8 @@ export default function CustomUrls() {
   const [copiedCode, setCopiedCode] = useState('')
   const [confirmDelete, setConfirmDelete] = useState(null)
   const [deleteError, setDeleteError] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterOption, setFilterOption] = useState('all')
 
   const qrRef = useRef(null)
   const router = useRouter()
@@ -49,6 +56,7 @@ export default function CustomUrls() {
       .then(res => res.json())
       .then(data => {
         setUrls(data)
+        setFilteredUrls(data)
         setLoading(false)
       })
       .catch(() => setLoading(false))
@@ -63,10 +71,33 @@ export default function CustomUrls() {
     }
   }
 
+  // SEARCH + FILTER
+  useEffect(() => {
+    let temp = [...urls]
+
+    if (searchTerm) {
+      temp = temp.filter(url =>
+        url.original_url.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        url.custom_shortcodes.some(code =>
+          code.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      )
+    }
+
+    if (filterOption === 'highClicks') {
+      temp = temp.sort((a, b) => b.clicks - a.clicks)
+    } else if (filterOption === 'lowClicks') {
+      temp = temp.sort((a, b) => a.clicks - b.clicks)
+    }
+
+    setFilteredUrls(temp)
+    setCurrentPage(1)
+  }, [searchTerm, filterOption, urls])
+
   const indexOfLastUrl = currentPage * urlsPerPage
   const indexOfFirstUrl = indexOfLastUrl - urlsPerPage
-  const currentUrls = urls.slice(indexOfFirstUrl, indexOfLastUrl)
-  const totalPages = Math.ceil(urls.length / urlsPerPage)
+  const currentUrls = filteredUrls.slice(indexOfFirstUrl, indexOfLastUrl)
+  const totalPages = Math.ceil(filteredUrls.length / urlsPerPage)
 
   const handleDeleteShortcode = async () => {
     const token = localStorage.getItem('token')
@@ -127,7 +158,8 @@ export default function CustomUrls() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-4 md:p-6 bg-white">
+    <div className="max-w-5xl mx-auto pt-28 px-4 md:px-6 bg-white">
+      {/* HEADER */}
       <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 text-center">
         My Shortened Links
       </h1>
@@ -141,8 +173,33 @@ export default function CustomUrls() {
         </p>
       </div>
 
+      {/* SEARCH + FILTER */}
+      <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-6">
+        <TextField
+          label="Search URL or Shortcode"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          size="small"
+          className="flex-1"
+        />
+        <FormControl size="small" className="w-48">
+          <InputLabel>Filter</InputLabel>
+          <Select
+            value={filterOption}
+            label="Filter"
+            onChange={(e) => setFilterOption(e.target.value)}
+          >
+            <MenuItem value="all">All</MenuItem>
+            <MenuItem value="highClicks">High Clicks</MenuItem>
+            <MenuItem value="lowClicks">Low Clicks</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+
       {loading ? (
         <p className="text-center text-slate-500">Loading...</p>
+      ) : filteredUrls.length === 0 ? (
+        <p className="text-center text-slate-500">No URLs found</p>
       ) : (
         <>
           <div className="grid gap-6">
@@ -293,6 +350,45 @@ export default function CustomUrls() {
               </Card>
             ))}
           </div>
+
+          {/* Swipeable Pagination */}
+          {totalPages > 1 && (
+            <div className="overflow-x-auto mt-8">
+              <div className="flex gap-2 min-w-max px-2">
+                <Button
+                  variant="outlined"
+                  size="small"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(prev => prev - 1)}
+                >
+                  Prev
+                </Button>
+
+                {[...Array(totalPages)].map((_, index) => {
+                  const page = index + 1
+                  return (
+                    <Button
+                      key={page}
+                      size="small"
+                      variant={currentPage === page ? 'contained' : 'outlined'}
+                      onClick={() => setCurrentPage(page)}
+                    >
+                      {page}
+                    </Button>
+                  )
+                })}
+
+                <Button
+                  variant="outlined"
+                  size="small"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(prev => prev + 1)}
+                >
+                  Next
+                </Button>
+              </div>
+            </div>
+          )}
         </>
       )}
 
