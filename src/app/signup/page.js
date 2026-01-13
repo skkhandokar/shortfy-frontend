@@ -37,7 +37,7 @@ export default function SignupPage() {
 
       {/* Centered Signup Form */}
       <section className="relative z-10 flex min-h-screen items-center justify-center px-4">
-        <AuthFormSignup type="signup" />
+        <AuthForm type="signup" />
       </section>
     </main>
   )

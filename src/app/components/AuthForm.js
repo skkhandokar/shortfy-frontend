@@ -6,6 +6,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import { useAuth } from "../context/AuthContext"
+import Image from "next/image"
 
 export default function AuthForm({ type = "signin" }) {
   const [formData, setFormData] = useState({ username: "", email: "", password: "" })
@@ -60,9 +61,18 @@ export default function AuthForm({ type = "signin" }) {
       
       {/* Brand */}
       <div className="mb-8 text-center">
-        <div className="mx-auto mb-4 mt-2 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 text-white font-bold shadow-lg">
-          S
-        </div>
+   <div className="mx-auto mb-4 mt-9 flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:scale-110">
+  <Image
+    src="/circle_logo.png"
+    alt="Shortfy Logo"
+    width={62}
+    height={62}
+    className="object-contain"
+    priority
+  />
+</div>
+
+
         <h2 className="text-3xl font-extrabold text-gray-900">
           {type === "signup" ? "Create your Shortfy account" : "Sign in to Shortfy"}
         </h2>

@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import Image from "next/image"
 
 export default function Navbar() {
   const { username, logout } = useAuth()
@@ -53,12 +54,20 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
 
           {/* Logo */}
-          <Link
-            href="/"
-            className="text-2xl font-semibold tracking-tight hover:text-slate-200 cursor-pointer"
-          >
-            Shortfy
-          </Link>
+       <Link href="/" className="flex items-center gap-3 group">
+  <Image
+    src="/circle_logo.png"
+    alt="Shortfy Logo"
+    width={44}
+    height={44}
+    className="object-contain transition-transform group-hover:scale-110"
+    priority
+  />
+  <span className="text-2xl font-semibold tracking-tight group-hover:text-slate-200">
+    Shortfy
+  </span>
+</Link>
+
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6 text-sm sm:text-base">

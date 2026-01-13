@@ -199,7 +199,12 @@ export default function CustomUrls() {
       {loading ? (
         <p className="text-center text-slate-500">Loading...</p>
       ) : filteredUrls.length === 0 ? (
-        <p className="text-center text-slate-500">No URLs found</p>
+        <p className="text-center text-gray-500 text-lg">
+                  No URLs found yet.{' '}
+                  <Link href="/" className="text-indigo-600 hover:text-indigo-800 font-semibold transition duration-300">
+                    Start Shortening!
+                  </Link>
+                </p>
       ) : (
         <>
           <div className="grid gap-6">

@@ -56,9 +56,71 @@ export default function AuthFormSignup({ type = "signup" }) {
       
       {/* Brand */}
       <div className="mb-8 text-center">
-        <div className="mx-auto mb-4 mt-8 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 text-white font-bold shadow-lg">
-          S
+        <div className="mx-auto mb-4 mt-8 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center relative">
+          {/* Outer subtle ring */}
+          <div className="absolute inset-0 rounded-full border border-gray-100 shadow-sm"></div>
+
+          {/* SVG Custom Logo with previous gradient color feel */}
+          <svg
+            viewBox="0 0 100 100"
+            className="h-12 w-12 sm:h-14 sm:w-14 drop-shadow-lg"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Shortfy logo"
+          >
+            {/* Top Arc with Arrow (Dark Blue) */}
+            <path
+              d="M25 40C28 25 45 15 65 22L72 15M72 15V32M72 15H55"
+              stroke="#001f3f"
+              strokeWidth="6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+
+            {/* Speed Lines on the left */}
+            <line x1="10" y1="42" x2="22" y2="42" stroke="#001f3f" strokeWidth="5" strokeLinecap="round"/>
+            <line x1="15" y1="52" x2="22" y2="52" stroke="#001f3f" strokeWidth="5" strokeLinecap="round"/>
+
+            {/* Center 'S' */}
+            <text
+              x="50%"
+              y="58%"
+              textAnchor="middle"
+              fill="url(#gradient)"
+              fontSize="34"
+              fontWeight="900"
+              fontFamily="sans-serif"
+            >
+              S
+            </text>
+
+            {/* Bottom Arc */}
+            <path
+              d="M30 65C40 80 65 82 80 65"
+              stroke="black"
+              strokeWidth="6"
+              strokeLinecap="round"
+              opacity="0.8"
+            />
+            <path
+              d="M80 65L85 55M80 65L70 58"
+              stroke="black"
+              strokeWidth="6"
+              strokeLinecap="round"
+              opacity="0.8"
+            />
+
+            {/* Gradient Definition */}
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#10b981" /> {/* Emerald */}
+                <stop offset="100%" stopColor="#06b6d4" /> {/* Cyan */}
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
+
         <h2 className="text-3xl font-extrabold text-gray-900">
           {type === "signup" ? "Create your Shortfy account" : "Sign in to Shortfy"}
         </h2>
@@ -123,10 +185,10 @@ export default function AuthFormSignup({ type = "signup" }) {
           {loading ? (
             <span className="flex items-center justify-center gap-2">
               <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-              Creating account...
+              {type === "signup" ? "Creating account..." : "Signing in..."}
             </span>
           ) : (
-            "Create Account"
+            type === "signup" ? "Create Account" : "Sign In"
           )}
         </button>
       </form>
@@ -134,9 +196,12 @@ export default function AuthFormSignup({ type = "signup" }) {
       {/* Footer */}
       <div className="mt-8 text-center text-sm text-gray-600">
         <p>
-          Already have an account?
-          <a href="/signin" className="ml-2 font-semibold text-emerald-600 hover:underline inline-flex items-center group">
-            Sign In
+          {type === "signup" ? "Already have an account?" : "Don't have an account?"}
+          <a
+            href={type === "signup" ? "/signin" : "/signup"}
+            className="ml-2 font-semibold text-emerald-600 hover:underline inline-flex items-center group"
+          >
+            {type === "signup" ? "Sign In" : "Sign Up"}
             <ArrowForwardIcon className="ml-1 text-sm group-hover:translate-x-1 transition-transform" />
           </a>
         </p>
