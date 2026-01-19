@@ -1,32 +1,5 @@
 
 
-// import ShortenerForm from '../components/ShortenerForm'
-
-// export const metadata = {
-//   title: 'Shortfy – URL Shortener',
-//   description: 'Create short URLs, track clicks, devices, countries, browsers, and use custom shortcodes with QR codes.',
-// }
-
-// export default function HomePage() {
-//   return (
-    
-//     <main className="min-h-screen bg-gradient-to-tr from-emerald-200 via-teal-100 to-orange-100 flex flex-col items-center pt-20">
-//       <h1 className="text-5xl font-extrabold text-center text-emerald-700 mb-8">
-//         🔗 Shortfy – Fast URL Shortener
-//       </h1>
-
-//       <p className="text-center text-gray-800 text-lg max-w-2xl mb-12">
-//         Create shorter URLs instantly. Track clicks, devices, countries, and browsers. 
-//         Customize your links with branded shortcodes and generate QR codes.
-//       </p>
-
-//       <ShortenerForm />
-//     </main>
-//   )
-// }
-
-
-
 
 import ShortenerForm from "../components/ShortenerForm";
 
