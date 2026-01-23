@@ -42,6 +42,49 @@ export default function MyURLs() {
       .catch(() => setLoading(false))
   }, [router])
 
+
+   const LoadingSkeleton = () => (
+  <div className="flex flex-col items-center justify-center p-12 w-full animate-fade-in">
+    {/* সেন্ট্রাল অ্যানিমেটেড লোগো */}
+    <div className="relative flex items-center justify-center mb-8">
+      <div className="absolute animate-ping h-20 w-20 rounded-full bg-emerald-400 opacity-20"></div>
+      <div className="relative bg-white p-4 rounded-2xl shadow-xl border border-emerald-100">
+        <div className="animate-spin h-10 w-10 border-4 border-emerald-500 border-t-transparent rounded-full" />
+      </div>
+    </div>
+
+    {/* টেক্সট অ্যানিমেশন */}
+    <div className="text-center space-y-2">
+      <h3 className="text-xl font-semibold text-gray-800 animate-pulse">
+        Syncing Your Dashboard...
+      </h3>
+      <p className="text-gray-500 text-sm max-w-xs mx-auto">
+        Fetching your short links and real-time performance data.
+      </p>
+    </div>
+
+    {/* প্রগ্রেস বার */}
+    <div className="mt-8 w-48 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+      <div className="h-full bg-emerald-500 origin-left" 
+           style={{ width: '100%', animation: 'shimmer 1.5s infinite linear' }}>
+      </div>
+    </div>
+
+    <style jsx>{`
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+    `}</style>
+  </div>
+);
   // Search + Filter
   useEffect(() => {
     let temp = [...urls]
@@ -111,7 +154,7 @@ export default function MyURLs() {
       </div>
 
       {loading ? (
-        <p className="text-center text-gray-500 text-lg animate-pulse">Loading...</p>
+        <LoadingSkeleton />
       ) : filteredUrls.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">
           No URLs found yet.{' '}
