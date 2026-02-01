@@ -105,58 +105,71 @@ export default function FeaturesPage() {
    ========================= */
 
 const features = [
-  {
+ {
     title: "🔐 Signup / Signin System",
-    description:
-      "Users can create an account to manage and track all their shortened URLs in one dashboard.",
-    benefit: "Personalized experience and saved link history.",
+    description: `Users can create an account to manage their shortened links.
+Logged-in users get access to personal dashboards.
+Allows saving, editing, and tracking all URLs in one place.`,
+    benefit: `Builds user trust and long-term engagement.
+Enables personalized analytics and dashboard experience.`
   },
   {
-    title: "🔗 Custom Short Links",
-    description:
-      "Create branded and memorable short URLs like shortfy.xyz/yourname.",
-    benefit: "Better branding and higher click-through rate.",
+    title: "🔗  Custom Short Links",
+    description: `Users can create branded, memorable short URLs by setting their own shortcode.
+Perfect for sharing on social media, business cards, or marketing campaigns.`,
+    benefit: `Increases trust and click-through rates.
+Enhances user control and branding potential.`
   },
+  
   {
     title: "📦 Bulk URL Shortener",
-    description:
-      "Shorten multiple URLs at once by pasting a list or uploading a CSV file.",
-    benefit: "Saves time for marketers and agencies.",
+    description: `Shorten multiple URLs at once by pasting a list or uploading a CSV file.`,
+    benefit: `Saves time for marketers and agencies.`
   },
+
   {
     title: "📊 Advanced Link Analytics",
-    description:
-      "Track total clicks, countries, devices, and browser details in real time.",
-    benefit: "Helps optimize marketing strategies.",
+    description: `Get real-time insights for every link, including:
+• Total Clicks
+• Visitor Countries
+• Device Type (mobile, tablet, desktop)
+• Browser Details`,
+    benefit: `Lets users understand their audience better.
+Great for marketing analysis and strategy optimization.`
   },
   {
     title: "📱 QR Code Generation",
-    description:
-      "Every short URL comes with a downloadable QR code for offline sharing.",
-    benefit: "Perfect for posters, flyers, and print media.",
+    description: `Each shortened URL comes with a downloadable QR code.
+Ideal for posters, flyers, menus, and offline campaigns.`,
+    benefit: `Easily share links offline.
+Convenient for businesses and event organizers.`
   },
   {
     title: "🛡️ Short URL Safety Checker",
-    description:
-      "Preview where a short link redirects before opening it.",
-    benefit: "Protects users from phishing and malicious links.",
+    description: `Users can check any Shortfy URL to see where it redirects before visiting.
+Helps prevent phishing, spam, or harmful redirections.`,
+    benefit: `Builds trust with users.
+Encourages safer link sharing and clicking.`
   },
   {
     title: "🚀 Fast & Free",
-    description:
-      "Shortfy is completely free with no hidden charges or limitations.",
-    benefit: "Encourages adoption and sharing.",
+    description: `Shortfy is completely free to use.
+No hidden charges, no premium walls — just fast and simple link shortening.`,
+    benefit: `Attracts users with powerful free features.
+Encourages growth and sharing.`
   },
   {
     title: "🎯 Authenticated Dashboard",
-    description:
-      "Logged-in users can view, search, and manage all their links.",
-    benefit: "Centralized and efficient link management.",
+    description: `Users who sign in can view all their created URLs.
+Filter, search, and analyze your links anytime from your dashboard.`,
+    benefit: `Centralized link management.
+Saves time and improves productivity.`
   },
   {
     title: "💡 Smart Custom Code Validation",
-    description:
-      "Prevents restricted or unsafe shortcodes during link creation.",
-    benefit: "Reduces errors and improves user experience.",
-  },
+    description: `Our system prevents users from choosing restricted shortcodes (like 6 or 7 characters).
+Ensures each custom shortcode is safe and usable.`,
+    benefit: `Reduces errors and frustration.
+Improves user experience during link creation.`
+  }
 ];
