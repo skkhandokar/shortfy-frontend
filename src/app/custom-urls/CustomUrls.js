@@ -470,7 +470,6 @@
 
 
 
-
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
@@ -492,7 +491,6 @@ import {
 import Link from 'next/link'
 import { QRCodeCanvas } from 'qrcode.react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import ShareIcon from '@mui/icons-material/Share'
 import QrCodeIcon from '@mui/icons-material/QrCode'
 import AnalyticsIcon from '@mui/icons-material/Analytics'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -502,7 +500,7 @@ export default function CustomUrls() {
   const [filteredUrls, setFilteredUrls] = useState([])
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const [mounted, setMounted] = useState(false) // Hydration ফিক্স করার জন্য
+  const [mounted, setMounted] = useState(false)
   const [qrUrl, setQrUrl] = useState('')
   const [openQrModal, setOpenQrModal] = useState(false)
   const [copiedCode, setCopiedCode] = useState('')
@@ -516,7 +514,6 @@ export default function CustomUrls() {
   const urlsPerPage = 10
   const origin = "https://shortfy.xyz"
 
-  // ১. মাউন্ট চেক এবং ডাটা ফেচিং
   useEffect(() => {
     setMounted(true)
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
@@ -539,10 +536,8 @@ export default function CustomUrls() {
       .catch(() => setLoading(false))
   }, [router])
 
-  // ২. সার্চ এবং ফিল্টার লজিক
   useEffect(() => {
     if (!mounted) return
-    
     let temp = [...urls]
     if (searchTerm) {
       temp = temp.filter(url =>
@@ -550,61 +545,60 @@ export default function CustomUrls() {
         (url.custom_shortcodes?.some(code => code.toLowerCase().includes(searchTerm.toLowerCase())))
       )
     }
-
-    if (filterOption === 'highClicks') {
-      temp = temp.sort((a, b) => b.clicks - a.clicks)
-    } else if (filterOption === 'lowClicks') {
-      temp = temp.sort((a, b) => a.clicks - b.clicks)
-    }
+    if (filterOption === 'highClicks') temp.sort((a, b) => b.clicks - a.clicks)
+    else if (filterOption === 'lowClicks') temp.sort((a, b) => a.clicks - b.clicks)
 
     setFilteredUrls(temp)
     setCurrentPage(1)
   }, [searchTerm, filterOption, urls, mounted])
 
+  // --- সুন্দর স্কেলিটন লোডার ---
+  const LoadingSkeleton = () => (
+    <div className="flex flex-col items-center justify-center p-12 w-full animate-fade-in">
+      <div className="relative flex items-center justify-center mb-8">
+        <div className="absolute animate-ping h-20 w-20 rounded-full bg-emerald-400 opacity-20"></div>
+        <div className="relative bg-white p-4 rounded-2xl shadow-xl border border-emerald-100">
+          <div className="animate-spin h-10 w-10 border-4 border-emerald-500 border-t-transparent rounded-full" />
+        </div>
+      </div>
+      <div className="text-center space-y-2">
+        <h3 className="text-xl font-semibold text-gray-800 animate-pulse">Syncing Your Dashboard...</h3>
+        <p className="text-gray-500 text-sm max-w-xs mx-auto">Fetching your custom links and real-time performance data.</p>
+      </div>
+      <div className="mt-8 w-48 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+        <div className="h-full bg-emerald-500 origin-left shimmer-animation"></div>
+      </div>
+      <style jsx>{`
+        .shimmer-animation { width: 100%; animation: shimmer 1.5s infinite linear; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      `}</style>
+    </div>
+  )
+
   const getFavicon = (url) => {
     try {
       const domain = new URL(url).hostname
       return `https://www.google.com/s2/favicons?sz=64&domain=${domain}`
-    } catch {
-      return '/default-favicon.png'
-    }
+    } catch { return '/default-favicon.png' }
   }
 
   const handleDeleteShortcode = async () => {
     const token = localStorage.getItem('token')
     if (!token || !confirmDelete) return
-
     const { id, code } = confirmDelete
     try {
-      const res = await fetch(
-        `https://skkhandokar22.pythonanywhere.com/api/custom-delete-shortcode/${id}/${code}/`,
+      const res = await fetch(`https://skkhandokar22.pythonanywhere.com/api/custom-delete-shortcode/${id}/${code}/`,
         { method: 'DELETE', headers: { Authorization: `Token ${token}` } }
       )
-
       if (res.status === 200 || res.status === 204) {
-        setUrls(prev => prev.map(url => 
-          url.id === id ? { ...url, custom_shortcodes: url.custom_shortcodes.filter(c => c !== code) } : url
-        ).filter(url => url.custom_shortcodes.length > 0))
+        setUrls(prev => prev.map(url => url.id === id ? { ...url, custom_shortcodes: url.custom_shortcodes.filter(c => c !== code) } : url).filter(url => url.custom_shortcodes.length > 0))
         setConfirmDelete(null)
-      } else {
-        setDeleteError('Failed to delete')
-      }
-    } catch {
-      setDeleteError('Network error')
-    }
+      } else { setDeleteError('Failed to delete') }
+    } catch { setDeleteError('Network error') }
   }
 
-  const downloadQrCode = () => {
-    const canvas = qrRef.current?.querySelector('canvas')
-    if (!canvas) return
-    const image = canvas.toDataURL('image/png')
-    const link = document.createElement('a')
-    link.href = image
-    link.download = 'shortfy-qr-code.png'
-    link.click()
-  }
-
-  // Hydration Error এড়াতে মাউন্ট না হওয়া পর্যন্ত কিছুই রেন্ডার হবে না
   if (!mounted) return null
 
   const indexOfLastUrl = currentPage * urlsPerPage
@@ -634,11 +628,13 @@ export default function CustomUrls() {
       </div>
 
       {loading ? (
-        <div className="text-center py-20">Loading your links...</div>
+        <LoadingSkeleton />
       ) : filteredUrls.length === 0 ? (
-        <div className="text-center py-20">
-          <p className="text-gray-500 text-lg mb-4">No URLs found yet.</p>
-          <Link href="/" className="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold">Start Shortening</Link>
+        <div className="text-center py-20 animate-fade-in">
+          <p className="text-gray-500 text-lg mb-4 font-medium">No URLs found yet.</p>
+          <Link href="/" className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-200 active:scale-95">
+            Start Shortening!
+          </Link>
         </div>
       ) : (
         <div className="grid gap-6">
@@ -647,14 +643,14 @@ export default function CustomUrls() {
               <CardContent className="flex flex-col sm:flex-row gap-6">
                 <Avatar src={getFavicon(url.original_url)} variant="rounded" sx={{ width: 44, height: 44 }} />
                 <div className="flex-1">
-                  <Typography className="text-xs text-slate-500 uppercase mb-2 font-bold">Short URLs</Typography>
+                  <Typography className="text-xs text-slate-500 uppercase mb-2 font-bold tracking-wider">Short URLs</Typography>
                   {url.custom_shortcodes.map(code => {
                     const shortUrl = `${origin}/${code}`
                     const isConfirming = confirmDelete?.id === url.id && confirmDelete?.code === code
                     return (
                       <div key={code} className="mb-4 border-b border-gray-50 pb-4 last:border-0">
                         <div className="flex flex-wrap gap-2 items-center">
-                          <MuiLink href={shortUrl} target="_blank" className="text-indigo-700 font-bold break-all">{shortUrl}</MuiLink>
+                          <MuiLink href={shortUrl} target="_blank" className="text-indigo-700 font-bold break-all hover:text-indigo-900">{shortUrl}</MuiLink>
                           <div className="flex flex-wrap gap-2 mt-2">
                             <Button size="small" variant="outlined" startIcon={<ContentCopyIcon />} onClick={() => { navigator.clipboard.writeText(shortUrl); setCopiedCode(code); setTimeout(() => setCopiedCode(''), 2000); }}>Copy</Button>
                             <Button size="small" variant="outlined" startIcon={<QrCodeIcon />} onClick={() => { setQrUrl(shortUrl); setOpenQrModal(true); }}>QR</Button>
@@ -662,22 +658,26 @@ export default function CustomUrls() {
                             <Button size="small" variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={() => setConfirmDelete({ id: url.id, code })}>Delete</Button>
                           </div>
                         </div>
-                        {copiedCode === code && <p className="text-xs text-green-600 mt-1">✔ Copied!</p>}
+                        {copiedCode === code && <p className="text-xs text-green-600 mt-1 font-bold animate-pulse">✔ Copied to clipboard</p>}
                         {isConfirming && (
-                          <div className="mt-2 bg-red-50 p-3 rounded-lg border border-red-100">
-                            <p className="text-sm text-red-700 mb-2">Delete this shortcode?</p>
+                          <div className="mt-3 bg-red-50 p-4 rounded-xl border border-red-100 animate-in fade-in zoom-in duration-200">
+                            <p className="text-sm text-red-700 mb-3 font-semibold">Are you sure you want to delete this link?</p>
                             <div className="flex gap-2">
-                              <Button size="small" color="error" variant="contained" onClick={handleDeleteShortcode}>Confirm</Button>
-                              <Button size="small" variant="outlined" onClick={() => setConfirmDelete(null)}>Cancel</Button>
+                              <Button size="small" color="error" variant="contained" onClick={handleDeleteShortcode} sx={{ borderRadius: '10px' }}>Yes, Delete</Button>
+                              <Button size="small" variant="outlined" onClick={() => setConfirmDelete(null)} sx={{ borderRadius: '10px' }}>Cancel</Button>
                             </div>
                           </div>
                         )}
                       </div>
                     )
                   })}
-                  <p className="text-xs text-slate-500 mt-2">Original URL</p>
-                  <p className="text-sm text-slate-700 break-words font-medium">{url.original_url}</p>
-                  <p className="text-sm mt-3 font-bold text-slate-900">Clicks: {url.clicks}</p>
+                  <p className="text-xs text-slate-500 mt-2 font-bold uppercase tracking-tighter">Original URL</p>
+                  <p className="text-sm text-slate-700 break-words font-medium opacity-80">{url.original_url}</p>
+                  <div className="mt-4 flex items-center gap-2">
+                    <div className="px-3 py-1 bg-slate-100 rounded-full">
+                      <p className="text-xs font-bold text-slate-900">Clicks: {url.clicks}</p>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -687,23 +687,30 @@ export default function CustomUrls() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-10">
-          <Button disabled={currentPage === 1} onClick={() => setCurrentPage(prev => prev - 1)}>Prev</Button>
-          <Typography className="self-center">Page {currentPage} of {totalPages}</Typography>
-          <Button disabled={currentPage === totalPages} onClick={() => setCurrentPage(prev => prev + 1)}>Next</Button>
+        <div className="flex justify-center items-center gap-4 mt-12">
+          <Button variant="outlined" disabled={currentPage === 1} onClick={() => setCurrentPage(prev => prev - 1)} sx={{ borderRadius: '12px' }}>Prev</Button>
+          <Typography className="font-bold text-slate-600">Page {currentPage} / {totalPages}</Typography>
+          <Button variant="outlined" disabled={currentPage === totalPages} onClick={() => setCurrentPage(prev => prev + 1)} sx={{ borderRadius: '12px' }}>Next</Button>
         </div>
       )}
 
       {/* QR Modal */}
       <Modal open={openQrModal} onClose={() => setOpenQrModal(false)}>
-        <div className="bg-white rounded-xl p-8 w-80 shadow-2xl mx-auto mt-40 text-center outline-none">
-          <h2 className="text-xl font-bold mb-4">QR Code</h2>
-          <div ref={qrRef} className="flex justify-center p-2 bg-white border rounded-lg">
+        <div className="bg-white rounded-[32px] p-8 w-80 shadow-2xl mx-auto mt-32 text-center outline-none border border-slate-100">
+          <h2 className="text-xl font-black text-slate-900 mb-6">Link QR Code</h2>
+          <div ref={qrRef} className="flex justify-center p-4 bg-slate-50 rounded-2xl border border-slate-100">
             <QRCodeCanvas value={qrUrl} size={200} />
           </div>
-          <div className="flex flex-col gap-2 mt-6">
-            <Button variant="contained" fullWidth onClick={downloadQrCode}>Download PNG</Button>
-            <Button variant="text" fullWidth onClick={() => setOpenQrModal(false)}>Close</Button>
+          <p className="text-[10px] text-slate-400 mt-4 break-all px-2">{qrUrl}</p>
+          <div className="flex flex-col gap-3 mt-8">
+            <Button variant="contained" fullWidth onClick={() => {
+              const canvas = qrRef.current?.querySelector('canvas');
+              const link = document.createElement('a');
+              link.href = canvas.toDataURL();
+              link.download = 'shortfy-qr.png';
+              link.click();
+            }} sx={{ borderRadius: '14px', py: 1.5, bgcolor: '#0f172a', fontWeight: 'bold' }}>Download PNG</Button>
+            <Button variant="text" fullWidth onClick={() => setOpenQrModal(false)} sx={{ color: '#64748b', fontWeight: 'bold' }}>Close</Button>
           </div>
         </div>
       </Modal>
