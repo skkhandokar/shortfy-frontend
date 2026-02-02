@@ -2,7 +2,7 @@
 
 import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 // আসল লজিকটি আলাদা কম্পোনেন্টে রাখা হয়েছে
 function AuthSuccessContent() {
