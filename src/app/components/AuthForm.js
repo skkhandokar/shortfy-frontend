@@ -170,26 +170,223 @@
 // }
 
 
+// 'use client'
+
+// import { useState } from "react"
+// import { useRouter } from "next/navigation"
+// import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
+// import VisibilityIcon from "@mui/icons-material/Visibility"
+// import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
+// import { useAuth } from "../context/AuthContext"
+// import Image from "next/image"
+
+// export default function AuthForm({ type = "signin" }) {
+//   const [formData, setFormData] = useState({ username: "", email: "", password: "" })
+//   const [showPassword, setShowPassword] = useState(false) // Password toggle state
+//   const [error, setError] = useState("")
+//   const [loading, setLoading] = useState(false)
+//   const router = useRouter()
+//   const { login } = useAuth()
+
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value })
+//   }
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault()
+//     setError("")
+//     setLoading(true)
+
+//     const endpoint = type === "signup" ? "/api/register/" : "/api/login/"
+//     const body = type === "signup" 
+//       ? formData 
+//       : { username: formData.username, password: formData.password }
+
+//     try {
+//       const res = await fetch(`https://skkhandokar22.pythonanywhere.com${endpoint}`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(body),
+//       })
+
+//       const data = await res.json()
+
+//       if (!res.ok) {
+//         throw new Error(data.username?.[0] || data.email?.[0] || data.error || "Something went wrong")
+//       }
+
+//       localStorage.setItem("token", data.token)
+//       login(data.username)
+//       router.push("/")
+//     } catch (err) {
+//       setError(err.message)
+//     } finally {
+//       setLoading(false)
+//     }
+//   }
+
+//   return (
+//     <div className="relative group w-full max-w-md">
+//       {/* Background Glow */}
+//       <div className="absolute -inset-1 rounded-[32px] bg-gradient-to-r from-emerald-400 to-cyan-400 opacity-20 blur-xl transition duration-1000 group-hover:opacity-40"></div>
+      
+//       <div className="relative w-full rounded-[30px] border border-white/60 bg-white/90 backdrop-blur-2xl p-8 sm:p-10 shadow-xl">
+        
+//         {/* Brand/Logo Section - Fixed Alignment */}
+//         <div className="mb-8 text-center">
+//           <div className="mx-auto  flex mb-4 mt-9  h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-300 hover:rotate-6">
+//             <Image
+//               src="/circle_logo.png"
+//               alt="Shortfy Logo"
+//               width={50}
+//               height={50}
+//               className="object-contain"
+//               priority
+//             />
+//           </div>
+//           <h2 className="text-2xl font-black tracking-tight text-gray-900">
+//             {type === "signup" ? "Get Started" : "Welcome Back"}
+//           </h2>
+//         </div>
+
+//         {/* Form Section */}
+//         <form onSubmit={handleSubmit} className="space-y-4">
+//           <InputField 
+//             name="username" 
+//             placeholder="Username" 
+//             value={formData.username} 
+//             onChange={handleChange} 
+//           />
+          
+//           {type === "signup" && (
+//             <InputField 
+//               name="email" 
+//               type="email" 
+//               placeholder="Email address" 
+//               value={formData.email} 
+//               onChange={handleChange} 
+//             />
+//           )}
+
+//           {/* Password Field with Eye Icon */}
+//           <div className="relative group/pass">
+//             <input
+//               type={showPassword ? "text" : "password"}
+//               name="password"
+//               onChange={handleChange}
+//               value={formData.password}
+//               placeholder="Password"
+//               required
+//               className="w-full rounded-2xl border border-gray-200 bg-gray-50/50 px-5 py-4 pr-12 text-gray-900 placeholder-gray-400 outline-none transition-all duration-300 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10"
+//             />
+//             <button
+//               type="button"
+//               onClick={() => setShowPassword(!showPassword)}
+//               className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+//             >
+//               {showPassword ? (
+//                 <VisibilityOffIcon fontSize="small" />
+//               ) : (
+//                 <VisibilityIcon fontSize="small" />
+//               )}
+//             </button>
+//           </div>
+
+//           {error && (
+//             <div className="flex items-center gap-2 rounded-xl border border-red-100 bg-red-50 p-3.5 text-xs font-bold text-red-600 animate-in fade-in slide-in-from-top-1">
+//               <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
+//               {error}
+//             </div>
+//           )}
+
+//           <button
+//             type="submit"
+//             disabled={loading}
+//             className={`mt-2 w-full rounded-2xl py-4 font-bold text-white transition-all duration-300 active:scale-95
+//               ${loading 
+//                 ? "bg-gray-400 cursor-not-allowed" 
+//                 : "bg-gray-900 hover:bg-black hover:shadow-lg"
+//               }`}
+//           >
+//             {loading ? "Processing..." : (type === "signup" ? "Create Account" : "Sign In")}
+//           </button>
+//         </form>
+
+//         {/* Footer */}
+//         <div className="mt-8 text-center text-sm font-medium text-gray-500">
+//           <p>
+//             {type === "signup" ? "Already have an account?" : "New to Shortfy?"}
+//             <a href={type === "signup" ? "/signin" : "/signup"} className="ml-2 font-bold text-emerald-600 hover:underline">
+//               {type === "signup" ? "Sign In" : "Create Account"}
+//             </a>
+//           </p>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// function InputField({ name, type = "text", placeholder, value, onChange }) {
+//   return (
+//     <input
+//       type={type}
+//       name={name}
+//       onChange={onChange}
+//       value={value}
+//       placeholder={placeholder}
+//       required
+//       className="w-full rounded-2xl border border-gray-200 bg-gray-50/50 px-5 py-4 text-gray-900 placeholder-gray-400 outline-none transition-all duration-300 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10"
+//     />
+//   )
+// }
+
+
+
+
+
 'use client'
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import VisibilityIcon from "@mui/icons-material/Visibility"
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
+import GoogleIcon from "@mui/icons-material/Google"
+import GitHubIcon from "@mui/icons-material/GitHub"
 import { useAuth } from "../context/AuthContext"
 import Image from "next/image"
+import { Box } from "@mui/material";
 
 export default function AuthForm({ type = "signin" }) {
-  const [formData, setFormData] = useState({ username: "", email: "", password: "" })
-  const [showPassword, setShowPassword] = useState(false) // Password toggle state
+  // Fix: Initial state এ সব ফিল্ড ডিফাইন করা হয়েছে যাতে "uncontrolled to controlled" এরর না আসে
+  const [formData, setFormData] = useState({ 
+    username: "", 
+    email: "", 
+    password: "" 
+  })
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { login } = useAuth()
 
+  const GoogleLogo = () => (
+  <Box
+    component="img"
+    src="https://developers.google.com/identity/images/g-logo.png"
+    alt="Google"
+    sx={{ width: 18, height: 18, mr: 1 }}
+  />
+);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  // সোশ্যাল লগইন ক্লিক লজিক
+  const handleSocialLogin = (provider) => {
+    const backendBaseUrl = "https://skkhandokar22.pythonanywhere.com"
+    // সরাসরি সোশ্যাল অথরাইজেশন লিঙ্কে রিডাইরেক্ট
+    window.location.href = `${backendBaseUrl}/accounts/${provider}/login/`
   }
 
   const handleSubmit = async (e) => {
@@ -200,23 +397,20 @@ export default function AuthForm({ type = "signin" }) {
     const endpoint = type === "signup" ? "/api/register/" : "/api/login/"
     const body = type === "signup" 
       ? formData 
-      : { username: formData.username, password: formData.password }
+      : { email: formData.email, password: formData.password }
 
     try {
-      const res = await fetch(`https://skkhandokar22.pythonanywhere.com${endpoint}`, {
+      const res = await fetch(`https://skkhandokar22.pythonanywhere.com/${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       })
 
       const data = await res.json()
-
-      if (!res.ok) {
-        throw new Error(data.username?.[0] || data.email?.[0] || data.error || "Something went wrong")
-      }
+      if (!res.ok) throw new Error(data.detail || data.error || "Authentication failed")
 
       localStorage.setItem("token", data.token)
-      login(data.username)
+      login(data.username || data.email)
       router.push("/")
     } catch (err) {
       setError(err.message)
@@ -226,75 +420,84 @@ export default function AuthForm({ type = "signin" }) {
   }
 
   return (
-    <div className="relative group w-full max-w-md">
+    <div className="relative group w-full max-w-md mx-auto mt-10">
       {/* Background Glow */}
       <div className="absolute -inset-1 rounded-[32px] bg-gradient-to-r from-emerald-400 to-cyan-400 opacity-20 blur-xl transition duration-1000 group-hover:opacity-40"></div>
       
       <div className="relative w-full rounded-[30px] border border-white/60 bg-white/90 backdrop-blur-2xl p-8 sm:p-10 shadow-xl">
         
-        {/* Brand/Logo Section - Fixed Alignment */}
+        {/* Logo Section */}
         <div className="mb-8 text-center">
-          <div className="mx-auto  flex mb-4 mt-9  h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-300 hover:rotate-6">
-            <Image
-              src="/circle_logo.png"
-              alt="Shortfy Logo"
-              width={50}
-              height={50}
-              className="object-contain"
-              priority
-            />
+          <div className="mx-auto flex mb-4 h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-300 hover:rotate-6">
+            <Image src="/circle_logo.png" alt="Logo" width={50} height={50} className="object-contain" priority />
           </div>
           <h2 className="text-2xl font-black tracking-tight text-gray-900">
             {type === "signup" ? "Get Started" : "Welcome Back"}
           </h2>
         </div>
 
-        {/* Form Section */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <InputField 
-            name="username" 
-            placeholder="Username" 
-            value={formData.username} 
-            onChange={handleChange} 
-          />
-          
-          {type === "signup" && (
-            <InputField 
-              name="email" 
-              type="email" 
-              placeholder="Email address" 
-              value={formData.email} 
-              onChange={handleChange} 
-            />
-          )}
+        {/* Social Buttons */}
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <button 
+            type="button"
+            onClick={() => handleSocialLogin('google')}
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
+          >
 
-          {/* Password Field with Eye Icon */}
-          <div className="relative group/pass">
+
+<Box display="flex" alignItems="center">
+  <GoogleLogo />
+  Google
+</Box>
+
+            {/* <GoogleIcon style={{ color: ['#4285F4','#EA4335','#FBBC05','#34A853'] }} fontSize="small" /> Google */}
+          </button>
+          <button 
+            type="button"
+            onClick={() => handleSocialLogin('github')}
+            className="flex cursor-pointer
+            items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
+          >
+            <GitHubIcon className="text-gray-900" fontSize="small" /> GitHub
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div className="relative mb-6 flex items-center">
+          <div className="flex-grow border-t border-gray-200"></div>
+          <span className="px-3 text-xs font-semibold uppercase text-gray-400">Or email</span>
+          <div className="flex-grow border-t border-gray-200"></div>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {type === "signup" && (
+            <InputField name="username" placeholder="Username" value={formData.username} onChange={handleChange} />
+          )}
+          
+          <InputField name="email" type="email" placeholder="Email address" value={formData.email} onChange={handleChange} />
+
+          <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               onChange={handleChange}
-              value={formData.password}
+              value={formData.password || ""}
               placeholder="Password"
               required
-              className="w-full rounded-2xl border border-gray-200 bg-gray-50/50 px-5 py-4 pr-12 text-gray-900 placeholder-gray-400 outline-none transition-all duration-300 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10"
+              className="w-full rounded-2xl border border-gray-200 bg-gray-50/50 px-5 py-4 pr-12 text-gray-900 outline-none transition-all duration-300 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
             >
-              {showPassword ? (
-                <VisibilityOffIcon fontSize="small" />
-              ) : (
-                <VisibilityIcon fontSize="small" />
-              )}
+              {showPassword ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
             </button>
           </div>
 
           {error && (
-            <div className="flex items-center gap-2 rounded-xl border border-red-100 bg-red-50 p-3.5 text-xs font-bold text-red-600 animate-in fade-in slide-in-from-top-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
+            <div className="flex items-center gap-2 rounded-xl border border-red-100 bg-red-50 p-3 text-xs font-bold text-red-600 animate-in fade-in">
               {error}
             </div>
           )}
@@ -302,17 +505,13 @@ export default function AuthForm({ type = "signin" }) {
           <button
             type="submit"
             disabled={loading}
-            className={`mt-2 w-full rounded-2xl py-4 font-bold text-white transition-all duration-300 active:scale-95
-              ${loading 
-                ? "bg-gray-400 cursor-not-allowed" 
-                : "bg-gray-900 hover:bg-black hover:shadow-lg"
-              }`}
+            className={`w-full cursor-pointer rounded-2xl py-4 font-bold text-white transition-all duration-300 active:scale-95
+              ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-gray-900 hover:bg-black hover:shadow-lg"}`}
           >
             {loading ? "Processing..." : (type === "signup" ? "Create Account" : "Sign In")}
           </button>
         </form>
 
-        {/* Footer */}
         <div className="mt-8 text-center text-sm font-medium text-gray-500">
           <p>
             {type === "signup" ? "Already have an account?" : "New to Shortfy?"}
@@ -332,7 +531,7 @@ function InputField({ name, type = "text", placeholder, value, onChange }) {
       type={type}
       name={name}
       onChange={onChange}
-      value={value}
+      value={value || ""} // Fix: value undefined হওয়া রোধ করবে
       placeholder={placeholder}
       required
       className="w-full rounded-2xl border border-gray-200 bg-gray-50/50 px-5 py-4 text-gray-900 placeholder-gray-400 outline-none transition-all duration-300 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10"

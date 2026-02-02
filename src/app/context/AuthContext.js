@@ -6,17 +6,24 @@ const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
   const [username, setUsername] = useState(null)
+  const [loading, setLoading] = useState(true) // ডাটা লোড হওয়া পর্যন্ত ট্র্যাক করবে
 
   useEffect(() => {
+    // পেজ রিফ্রেশ করলে লোকাল স্টোরেজ থেকে ডাটা রিকভার করা
     const storedUsername = localStorage.getItem('username')
-    if (storedUsername) {
+    const token = localStorage.getItem('token')
+    
+    if (storedUsername && token) {
       setUsername(storedUsername)
     }
+    setLoading(false)
   }, [])
 
-  const login = (username) => {
-    setUsername(username)
-    localStorage.setItem('username', username)
+  // লগইন ফাংশন: এটি ম্যানুয়াল এবং সোশ্যাল দুই ক্ষেত্রেই কাজ করবে
+  const login = (userData, token) => {
+    setUsername(userData)
+    localStorage.setItem('username', userData)
+    localStorage.setItem('token', token)
   }
 
   const logout = () => {
@@ -26,15 +33,10 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ username, login, logout }}>
+    <AuthContext.Provider value={{ username, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
 export const useAuth = () => useContext(AuthContext)
-
-
-
-
-
