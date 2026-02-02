@@ -156,13 +156,13 @@ export default function MyURLs() {
       {loading ? (
         <LoadingSkeleton />
       ) : filteredUrls.length === 0 ? (
-        <p className="text-center text-gray-500 text-lg">
-          No URLs found yet.{' '}
-          <Link href="/" className="text-indigo-600 hover:text-indigo-800 font-semibold transition duration-300">
+        <div className="text-center py-20 animate-fade-in">
+          <p className="text-gray-500 text-lg mb-4 font-medium">No URLs found yet.</p>
+          <Link href="/" className="inline-flex items-center px-8 py-3 bg-black text-white font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-200 active:scale-95">
             Start Shortening!
           </Link>
-        </p>
-      ) : (
+        </div>
+      ): (
         <>
           <div className="grid gap-6">
             {currentUrls.map((url) => (
