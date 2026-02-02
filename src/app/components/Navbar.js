@@ -1,218 +1,7 @@
-// 'use client'
-
-// import Link from 'next/link'
-// import Head from 'next/head'
-// import { usePathname, useRouter } from 'next/navigation'
-// import { useState, useEffect } from 'react'
-// import { Menu, X } from 'lucide-react'
-// import { useAuth } from '../context/AuthContext'
-// import Image from "next/image"
-
-// export default function Navbar() {
-//   const { username, logout } = useAuth()
-//   const pathname = usePathname()
-//   const router = useRouter()
-//   const [open, setOpen] = useState(false)
-//   const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-//   // ✅ Only run in browser
-//   useEffect(() => {
-//     const token = localStorage.getItem('token')
-//     setIsAuthenticated(!!token)
-//   }, [])
-
-//   const isActive = (path) => pathname === path
-
-//   const handleProtectedClick = (href) => {
-//     if (username || isAuthenticated) {
-//       router.push(href)
-//     } else {
-//       router.push('/signin')
-//     }
-//     setOpen(false)
-//   }
-
-//   return (
-//     <>
-//       {/* SEO Head */}
-//       <Head>
-//         <title>
-//           {username
-//             ? `Dashboard | ${username} – Shortfy`
-//             : 'Shortfy – Professional URL Shortener'}
-//         </title>
-//         <meta
-//           name="description"
-//           content="Shortfy is a professional, fast, and secure URL shortener with analytics and custom links."
-//         />
-//       </Head>
-
-//       <nav
-//         className="fixed top-0 left-0 w-full bg-[#0A1A2F] text-white shadow-md z-50"
-//         aria-label="Primary Navigation"
-//       >
-//         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
-
-//           {/* Logo */}
-//        <Link href="/" className="flex items-center gap-3 group">
-//   <Image
-//     src="/circle_logo.png"
-//     alt="Shortfy Logo"
-//     width={44}
-//     height={44}
-//     className="object-contain transition-transform group-hover:scale-110"
-//     priority
-//   />
-//   <span className="text-2xl font-semibold tracking-tight group-hover:text-slate-200">
-//     Shortfy
-//   </span>
-// </Link>
-
-
-//           {/* Desktop Menu */}
-//           <div className="hidden md:flex items-center space-x-6 text-sm sm:text-base">
-//             <span className="text-slate-300">{username}</span>
-
-//             {/* Protected links */}
-//             {['/my-urls', '/custom-urls', '/bulkshortner'].map((link) => (
-//               <button
-//                 key={link}
-//                 onClick={() => handleProtectedClick(link)}
-//                 className={`cursor-pointer ${
-//                   isActive(link) ? 'font-medium underline' : 'hover:text-white'
-//                 }`}
-//               >
-//                 {link === '/my-urls'
-//                   ? 'My URLs'
-//                   : link === '/custom-urls'
-//                   ? 'Custom URLs'
-//                   : 'Bulk'}
-//               </button>
-//             ))}
-
-//             {/* Public links */}
-//             <Link
-//               href="/features"
-//               aria-current={isActive('/features') ? 'page' : undefined}
-//               className={`cursor-pointer ${
-//                 isActive('/features') ? 'font-medium underline' : 'hover:text-white'
-//               }`}
-//             >
-//               Features
-//             </Link>
-//             <Link
-//               href="/shorturlcheck"
-//               aria-current={isActive('/shorturlcheck') ? 'page' : undefined}
-//               className={`cursor-pointer ${
-//                 isActive('/shorturlcheck') ? 'font-medium underline' : 'hover:text-white'
-//               }`}
-//             >
-//               Check URLs
-//             </Link>
-
-//             {username ? (
-//               <button
-//                 onClick={logout}
-//                 className="cursor-pointer text-red-400 hover:text-red-500"
-//               >
-//                 Logout
-//               </button>
-//             ) : (
-//               <>
-//                 <Link href="/signin" className="cursor-pointer hover:text-white">
-//                   Login
-//                 </Link>
-//                 <Link
-//                   href="/signup"
-//                   className="cursor-pointer px-4 py-2 rounded-md bg-white text-[#0A1A2F] font-medium"
-//                 >
-//                   Signup
-//                 </Link>
-//               </>
-//             )}
-//           </div>
-
-//           {/* Mobile Hamburger */}
-//           <button
-//             aria-label="Open menu"
-//             onClick={() => setOpen(!open)}
-//             className="md:hidden text-white cursor-pointer"
-//           >
-//             {open ? <X size={26} /> : <Menu size={26} />}
-//           </button>
-//         </div>
-
-//         {/* Mobile Menu */}
-//         {open && (
-//           <div className="md:hidden bg-[#0A1A2F] border-t border-slate-700 px-6 py-6 space-y-4 text-sm">
-//             <span className="block text-slate-400">{username}</span>
-
-//             {['/my-urls', '/custom-urls', '/bulkshortner', '/features', '/shorturlcheck'].map((link) => {
-//               const label =
-//                 link === '/my-urls'
-//                   ? 'My URLs'
-//                   : link === '/custom-urls'
-//                   ? 'Custom URLs'
-//                   : link === '/bulkshortner'
-//                   ? 'Bulk'
-//                   : link === '/features'
-//                   ? 'Features'
-//                   : 'Check URLs'
-//               const isProtected = ['/my-urls', '/custom-urls', '/bulkshortner'].includes(link)
-
-//               return (
-//                 <button
-//                   key={link}
-//                   onClick={() =>
-//                     isProtected ? handleProtectedClick(link) : router.push(link)
-//                   }
-//                   className={`block cursor-pointer ${
-//                     isActive(link) ? 'font-medium underline text-white' : 'text-slate-300 hover:text-white'
-//                   }`}
-//                 >
-//                   {label}
-//                 </button>
-//               )
-//             })}
-
-//             {username ? (
-//               <button
-//                 onClick={() => {
-//                   logout()
-//                   setOpen(false)
-//                 }}
-//                 className="cursor-pointer text-red-400 hover:text-red-500"
-//               >
-//                 Logout
-//               </button>
-//             ) : (
-//               <>
-//                 <Link href="/signin" className="cursor-pointer block text-slate-300 hover:text-white">
-//                   Login
-//                 </Link>
-//                 <Link
-//                   href="/signup"
-//                   className="cursor-pointer block px-4 py-2 rounded-md bg-white text-[#0A1A2F] font-medium"
-//                 >
-//                   Signup
-//                 </Link>
-//               </>
-//             )}
-//           </div>
-//         )}
-//       </nav>
-//     </>
-//   )
-// }
-
-
-
-
-
-
 'use client'
 
 import Link from 'next/link'
+import Head from 'next/head'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
@@ -224,17 +13,18 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const [mounted, setMounted] = useState(false) // Hydration error বাচাতে
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  // ✅ Client-side mounting check
+  // ✅ Only run in browser
   useEffect(() => {
-    setMounted(true)
+    const token = localStorage.getItem('token')
+    setIsAuthenticated(!!token)
   }, [])
 
   const isActive = (path) => pathname === path
 
   const handleProtectedClick = (href) => {
-    if (username) {
+    if (username || isAuthenticated) {
       router.push(href)
     } else {
       router.push('/signin')
@@ -242,100 +32,310 @@ export default function Navbar() {
     setOpen(false)
   }
 
-  // যদি মাউন্ট না হয়, তবে কিছুই দেখাবে না (Flickering এবং Error বাচাতে)
-  if (!mounted) return null;
-
   return (
-    <nav
-      className="fixed top-0 left-0 w-full bg-[#0A1A2F] text-white shadow-md z-50"
-      aria-label="Primary Navigation"
-    >
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
+    <>
+      {/* SEO Head */}
+      <Head>
+        <title>
+          {username
+            ? `Dashboard | ${username} – Shortfy`
+            : 'Shortfy – Professional URL Shortener'}
+        </title>
+        <meta
+          name="description"
+          content="Shortfy is a professional, fast, and secure URL shortener with analytics and custom links."
+        />
+      </Head>
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <Image
-            src="/circle_logo.png"
-            alt="Shortfy Logo"
-            width={44}
-            height={44}
-            className="object-contain transition-transform group-hover:scale-110"
-            priority
-          />
-          <span className="text-2xl font-semibold tracking-tight group-hover:text-slate-200">
-            Shortfy
-          </span>
-        </Link>
+      <nav
+        className="fixed top-0 left-0 w-full bg-[#0A1A2F] text-white shadow-md z-50"
+        aria-label="Primary Navigation"
+      >
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6 text-sm sm:text-base">
-          {username && <span className="text-slate-300 font-medium">{username}</span>}
+          {/* Logo */}
+       <Link href="/" className="flex items-center gap-3 group">
+  <Image
+    src="/circle_logo.png"
+    alt="Shortfy Logo"
+    width={44}
+    height={44}
+    className="object-contain transition-transform group-hover:scale-110"
+    priority
+  />
+  <span className="text-2xl font-semibold tracking-tight group-hover:text-slate-200">
+    Shortfy
+  </span>
+</Link>
 
-          {/* Protected links */}
-          {['/my-urls', '/custom-urls', '/bulkshortner'].map((link) => (
-            <button
-              key={link}
-              onClick={() => handleProtectedClick(link)}
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-6 text-sm sm:text-base">
+            <span className="text-slate-300">{username}</span>
+
+            {/* Protected links */}
+            {['/my-urls', '/custom-urls', '/bulkshortner'].map((link) => (
+              <button
+                key={link}
+                onClick={() => handleProtectedClick(link)}
+                className={`cursor-pointer ${
+                  isActive(link) ? 'font-medium underline' : 'hover:text-white'
+                }`}
+              >
+                {link === '/my-urls'
+                  ? 'My URLs'
+                  : link === '/custom-urls'
+                  ? 'Custom URLs'
+                  : 'Bulk'}
+              </button>
+            ))}
+
+            {/* Public links */}
+            <Link
+              href="/features"
+              aria-current={isActive('/features') ? 'page' : undefined}
               className={`cursor-pointer ${
-                isActive(link) ? 'font-medium underline text-white' : 'text-slate-300 hover:text-white'
+                isActive('/features') ? 'font-medium underline' : 'hover:text-white'
               }`}
             >
-              {link === '/my-urls' ? 'My URLs' : link === '/custom-urls' ? 'Custom URLs' : 'Bulk'}
-            </button>
-          ))}
-
-          {/* Public links */}
-          <Link href="/features" className={`hover:text-white ${isActive('/features') ? 'underline' : ''}`}>
-            Features
-          </Link>
-          <Link href="/shorturlcheck" className={`hover:text-white ${isActive('/shorturlcheck') ? 'underline' : ''}`}>
-            Check URLs
-          </Link>
-
-          {username ? (
-            <button onClick={logout} className="text-red-400 hover:text-red-500">Logout</button>
-          ) : (
-            <>
-              <Link href="/signin" className="hover:text-white">Login</Link>
-              <Link href="/signup" className="px-4 py-2 rounded-md bg-white text-[#0A1A2F] font-medium">Signup</Link>
-            </>
-          )}
-        </div>
-
-        {/* Mobile Hamburger */}
-        <button onClick={() => setOpen(!open)} className="md:hidden text-white">
-          {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden bg-[#0A1A2F] border-t border-slate-700 px-6 py-6 space-y-4">
-          {username && <span className="block text-slate-400 mb-2">{username}</span>}
-          {['/my-urls', '/custom-urls', '/bulkshortner', '/features', '/shorturlcheck'].map((link) => (
-            <button
-              key={link}
-              onClick={() => {
-                ['/my-urls', '/custom-urls', '/bulkshortner'].includes(link) 
-                  ? handleProtectedClick(link) 
-                  : router.push(link);
-                setOpen(false);
-              }}
-              className="block w-full text-left text-slate-300 hover:text-white py-2"
+              Features
+            </Link>
+            <Link
+              href="/shorturlcheck"
+              aria-current={isActive('/shorturlcheck') ? 'page' : undefined}
+              className={`cursor-pointer ${
+                isActive('/shorturlcheck') ? 'font-medium underline' : 'hover:text-white'
+              }`}
             >
-              {link === '/my-urls' ? 'My URLs' : link === '/custom-urls' ? 'Custom URLs' : link === '/bulkshortner' ? 'Bulk' : 'Features'}
-            </button>
-          ))}
-          {username ? (
-            <button onClick={logout} className="block text-red-400 py-2">Logout</button>
-          ) : (
-            <div className="pt-4 space-y-4">
-              <Link href="/signin" className="block text-slate-300">Login</Link>
-              <Link href="/signup" className="block text-center px-4 py-2 rounded-md bg-white text-[#0A1A2F]">Signup</Link>
-            </div>
-          )}
+              Check URLs
+            </Link>
+
+            {username ? (
+              <button
+                onClick={logout}
+                className="cursor-pointer text-red-400 hover:text-red-500"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link href="/signin" className="cursor-pointer hover:text-white">
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className="cursor-pointer px-4 py-2 rounded-md bg-white text-[#0A1A2F] font-medium"
+                >
+                  Signup
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            aria-label="Open menu"
+            onClick={() => setOpen(!open)}
+            className="md:hidden text-white cursor-pointer"
+          >
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile Menu */}
+        {open && (
+          <div className="md:hidden bg-[#0A1A2F] border-t border-slate-700 px-6 py-6 space-y-4 text-sm">
+            <span className="block text-slate-400">{username}</span>
+
+            {['/my-urls', '/custom-urls', '/bulkshortner', '/features', '/shorturlcheck'].map((link) => {
+              const label =
+                link === '/my-urls'
+                  ? 'My URLs'
+                  : link === '/custom-urls'
+                  ? 'Custom URLs'
+                  : link === '/bulkshortner'
+                  ? 'Bulk'
+                  : link === '/features'
+                  ? 'Features'
+                  : 'Check URLs'
+              const isProtected = ['/my-urls', '/custom-urls', '/bulkshortner'].includes(link)
+
+              return (
+                <button
+                  key={link}
+                  onClick={() =>
+                    isProtected ? handleProtectedClick(link) : router.push(link)
+                  }
+                  className={`block cursor-pointer ${
+                    isActive(link) ? 'font-medium underline text-white' : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  {label}
+                </button>
+              )
+            })}
+
+            {username ? (
+              <button
+                onClick={() => {
+                  logout()
+                  setOpen(false)
+                }}
+                className="cursor-pointer text-red-400 hover:text-red-500"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link href="/signin" className="cursor-pointer block text-slate-300 hover:text-white">
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className="cursor-pointer block px-4 py-2 rounded-md bg-white text-[#0A1A2F] font-medium"
+                >
+                  Signup
+                </Link>
+              </>
+            )}
+          </div>
+        )}
+      </nav>
+    </>
   )
 }
+
+
+
+
+
+
+// 'use client'
+
+// import Link from 'next/link'
+// import { usePathname, useRouter } from 'next/navigation'
+// import { useState, useEffect } from 'react'
+// import { Menu, X } from 'lucide-react'
+// import { useAuth } from '../context/AuthContext'
+// import Image from "next/image"
+
+// export default function Navbar() {
+//   const { username, logout } = useAuth()
+//   const pathname = usePathname()
+//   const router = useRouter()
+//   const [open, setOpen] = useState(false)
+//   const [mounted, setMounted] = useState(false) // Hydration error বাচাতে
+
+//   // ✅ Client-side mounting check
+//   useEffect(() => {
+//     setMounted(true)
+//   }, [])
+
+//   const isActive = (path) => pathname === path
+
+//   const handleProtectedClick = (href) => {
+//     if (username) {
+//       router.push(href)
+//     } else {
+//       router.push('/signin')
+//     }
+//     setOpen(false)
+//   }
+
+//   // যদি মাউন্ট না হয়, তবে কিছুই দেখাবে না (Flickering এবং Error বাচাতে)
+//   if (!mounted) return null;
+
+//   return (
+//     <nav
+//       className="fixed top-0 left-0 w-full bg-[#0A1A2F] text-white shadow-md z-50"
+//       aria-label="Primary Navigation"
+//     >
+//       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
+
+//         {/* Logo */}
+//         <Link href="/" className="flex items-center gap-3 group">
+//           <Image
+//             src="/circle_logo.png"
+//             alt="Shortfy Logo"
+//             width={44}
+//             height={44}
+//             className="object-contain transition-transform group-hover:scale-110"
+//             priority
+//           />
+//           <span className="text-2xl font-semibold tracking-tight group-hover:text-slate-200">
+//             Shortfy
+//           </span>
+//         </Link>
+
+//         {/* Desktop Menu */}
+//         <div className="hidden md:flex items-center space-x-6 text-sm sm:text-base">
+//           {username && <span className="text-slate-300 font-medium">{username}</span>}
+
+//           {/* Protected links */}
+//           {['/my-urls', '/custom-urls', '/bulkshortner'].map((link) => (
+//             <button
+//               key={link}
+//               onClick={() => handleProtectedClick(link)}
+//               className={`cursor-pointer ${
+//                 isActive(link) ? 'font-medium underline text-white' : 'text-slate-300 hover:text-white'
+//               }`}
+//             >
+//               {link === '/my-urls' ? 'My URLs' : link === '/custom-urls' ? 'Custom URLs' : 'Bulk'}
+//             </button>
+//           ))}
+
+//           {/* Public links */}
+//           <Link href="/features" className={`hover:text-white ${isActive('/features') ? 'underline' : ''}`}>
+//             Features
+//           </Link>
+//           <Link href="/shorturlcheck" className={`hover:text-white ${isActive('/shorturlcheck') ? 'underline' : ''}`}>
+//             Check URLs
+//           </Link>
+
+//           {username ? (
+//             <button onClick={logout} className="text-red-400 hover:text-red-500">Logout</button>
+//           ) : (
+//             <>
+//               <Link href="/signin" className="hover:text-white">Login</Link>
+//               <Link href="/signup" className="px-4 py-2 rounded-md bg-white text-[#0A1A2F] font-medium">Signup</Link>
+//             </>
+//           )}
+//         </div>
+
+//         {/* Mobile Hamburger */}
+//         <button onClick={() => setOpen(!open)} className="md:hidden text-white">
+//           {open ? <X size={26} /> : <Menu size={26} />}
+//         </button>
+//       </div>
+
+//       {/* Mobile Menu */}
+//       {open && (
+//         <div className="md:hidden bg-[#0A1A2F] border-t border-slate-700 px-6 py-6 space-y-4">
+//           {username && <span className="block text-slate-400 mb-2">{username}</span>}
+//           {['/my-urls', '/custom-urls', '/bulkshortner', '/features', '/shorturlcheck'].map((link) => (
+//             <button
+//               key={link}
+//               onClick={() => {
+//                 ['/my-urls', '/custom-urls', '/bulkshortner'].includes(link) 
+//                   ? handleProtectedClick(link) 
+//                   : router.push(link);
+//                 setOpen(false);
+//               }}
+//               className="block w-full text-left text-slate-300 hover:text-white py-2"
+//             >
+//               {link === '/my-urls' ? 'My URLs' : link === '/custom-urls' ? 'Custom URLs' : link === '/bulkshortner' ? 'Bulk' : 'Features'}
+//             </button>
+//           ))}
+//           {username ? (
+//             <button onClick={logout} className="block text-red-400 py-2">Logout</button>
+//           ) : (
+//             <div className="pt-4 space-y-4">
+//               <Link href="/signin" className="block text-slate-300">Login</Link>
+//               <Link href="/signup" className="block text-center px-4 py-2 rounded-md bg-white text-[#0A1A2F]">Signup</Link>
+//             </div>
+//           )}
+//         </div>
+//       )}
+//     </nav>
+//   )
+// }
