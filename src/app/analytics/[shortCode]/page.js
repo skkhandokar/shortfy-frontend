@@ -5,7 +5,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../context/AuthContext'
+
 import {
   Chart as ChartJS,
   CategoryScale,
