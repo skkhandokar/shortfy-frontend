@@ -119,14 +119,14 @@ export default function Navbar() {
               </button>
             ) : (
               <>
-                <Link href="/signin" className="cursor-pointer hover:text-white">
+                {/* <Link href="/signin" className="cursor-pointer hover:text-white">
                   Login
-                </Link>
+                </Link> */}
                 <Link
-                  href="/signup"
+                  href="/signin"
                   className="cursor-pointer px-4 py-2 rounded-md bg-white text-[#0A1A2F] font-medium"
                 >
-                  Signup
+                  Login
                 </Link>
               </>
             )}
