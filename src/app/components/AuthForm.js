@@ -487,7 +487,7 @@ export default function AuthForm({ type = "signin" }) {
       <div className="mt-8 text-center text-sm font-medium text-gray-500">
         <p>
           {type === "signup" ? "Already using Shortfy?" : "New to Shortfy?"}
-          <Link href={type === "signup" ? "/signin" : "/signup"} className="ml-2 font-bold text-blue-400 hover:text-blue-700 transition-colors">
+          <Link href={type === "signup" ? "/signin" : "/signup"} className="ml-2 font-bold text-emerald-400 hover:text-emerald-700 transition-colors">
             {type === "signup" ? "Sign In" : "Register Now"}
           </Link>
         </p>
