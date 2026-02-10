@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext'
-
+import BASE_URL from '@/config/api';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -235,7 +235,7 @@ export default function AnalyticsPage() {
     setLoading(true);
     try {
       const res = await axios.get(
-        `https://skkhandokar22.pythonanywhere.com/api/analytics/${shortCode}/?time=${timeframe}`,
+        `${BASE_URL}/api/analytics/${shortCode}/?time=${timeframe}`,
         { headers: { Authorization: `Token ${token}` } }
       );
       setAnalytics(res.data);
@@ -244,7 +244,7 @@ export default function AnalyticsPage() {
       setTotalClicks(total);
 
       const dailyRes = await axios.get(
-        `https://skkhandokar22.pythonanywhere.com/api/daily/${shortCode}/analytics/?time=${timeframe}`
+        `${BASE_URL}/api/daily/${shortCode}/analytics/?time=${timeframe}`
       );
       setDailyClicks(dailyRes.data);
       setLastClick(res.data.last_click_time);

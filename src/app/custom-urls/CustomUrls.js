@@ -26,7 +26,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import QrCodeIcon from '@mui/icons-material/QrCode'
 import AnalyticsIcon from '@mui/icons-material/Analytics'
 import DeleteIcon from '@mui/icons-material/Delete'
-
+import BASE_URL from '@/config/api'
 export default function CustomUrls() {
   const [urls, setUrls] = useState([])
   const [filteredUrls, setFilteredUrls] = useState([])
@@ -55,7 +55,7 @@ export default function CustomUrls() {
       return
     }
 
-    fetch('https://skkhandokar22.pythonanywhere.com/api/custom-urls/', {
+    fetch(`${BASE_URL}/api/custom-urls/`, {
       headers: { Authorization: `Token ${token}` },
     })
       .then(res => res.json())
@@ -121,7 +121,7 @@ export default function CustomUrls() {
     if (!token || !confirmDelete) return
     const { id, code } = confirmDelete
     try {
-      const res = await fetch(`https://skkhandokar22.pythonanywhere.com/api/custom-delete-shortcode/${id}/${code}/`,
+      const res = await fetch(`${BASE_URL}/api/custom-delete-shortcode/${id}/${code}/`,
         { method: 'DELETE', headers: { Authorization: `Token ${token}` } }
       )
       if (res.status === 200 || res.status === 204) {

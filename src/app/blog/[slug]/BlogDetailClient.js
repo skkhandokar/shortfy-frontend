@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import BASE_URL from "@/config/api";
 
 // মার্কডাউন কম্পোনেন্ট কাস্টমাইজেশন
 const markdownComponents = {
@@ -20,7 +21,7 @@ const markdownComponents = {
 };
 
 async function getBlog(slug) {
-  const res = await fetch(`https://skkhandokar22.pythonanywhere.com/api/blogs/${slug}/`, { cache: "no-store" });
+  const res = await fetch(`${BASE_URL}/api/blogs/${slug}/`, { cache: "no-store" });
   if (!res.ok) return null;
   return res.json();
 }

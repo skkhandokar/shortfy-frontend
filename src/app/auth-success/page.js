@@ -3,6 +3,7 @@
 import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
+import BASE_URL from '@/config/api';
 
 // আসল লজিকটি আলাদা কম্পোনেন্টে রাখা হয়েছে
 function AuthSuccessContent() {
@@ -14,7 +15,7 @@ function AuthSuccessContent() {
         const token = searchParams.get('token');
         if (token) {
             // আপনার PythonAnywhere এপিআই লিঙ্ক
-            fetch('https://skkhandokar22.pythonanywhere.com/api/current-user/', {
+            fetch(`${BASE_URL}/api/current-user/`, {
                 headers: { 'Authorization': `Token ${token}` }
             })
             .then(res => {

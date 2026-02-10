@@ -4,6 +4,9 @@
 'use client';
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Import } from "lucide-react";
+import BASE_URL from "@/config/api";
+
 
 export default function BulkShortener() {
   const [input, setInput] = useState("");
@@ -62,7 +65,7 @@ export default function BulkShortener() {
         ? { headers: { Authorization: `Token ${authToken}` } }
         : {};
       const res = await axios.post(
-        "https://skkhandokar22.pythonanywhere.com/api/bulk-create/",
+        `${BASE_URL}/api/bulk-create/`,
         { urls: validUrls },
         config
       );

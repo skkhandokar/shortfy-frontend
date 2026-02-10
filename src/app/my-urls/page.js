@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material'
 import Link from 'next/link'
 import URLCard from '../components/URLCard'
-
+import BASE_URL from '@/config/api'
 export default function MyURLs() {
   const [urls, setUrls] = useState([])
   const [filteredUrls, setFilteredUrls] = useState([])
@@ -18,7 +18,7 @@ export default function MyURLs() {
   const urlsPerPage = 10
 
   const router = useRouter()
-  const BASE_URL = 'https://shortfy.xyz'
+  const BASE_URLL = 'https://shortfy.xyz'
 
   // Fetch URLs
   useEffect(() => {
@@ -28,9 +28,9 @@ export default function MyURLs() {
       return
     }
 
-    if (typeof window !== 'undefined') setOrigin(BASE_URL)
+    if (typeof window !== 'undefined') setOrigin(BASE_URLL)
 
-    fetch('https://skkhandokar22.pythonanywhere.com/api/my-urls/', {
+    fetch(`${BASE_URL}/api/my-urls/`, {
       headers: { Authorization: `Token ${token}` },
     })
       .then(res => res.json())

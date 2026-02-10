@@ -1,26 +1,6 @@
 
 
-// export default function RedirectPage({ params }) {
-//   const { shortCode } = params;
-
-//   return (
-//     <html>
-//       <body>
-//         <p>Redirecting...</p>
-//         <script
-//           dangerouslySetInnerHTML={{
-//             __html: `
-//               window.location.href = 'https://skkhandokar22.pythonanywhere.com/api/check/${shortCode}/';
-//             `,
-//           }}
-//         />
-//       </body>
-//     </html>
-//   );
-// }
-
-
-
+import BASE_URL from "@/config/api";
 
 
 
@@ -35,7 +15,7 @@ export default async function RedirectPage({ params }) {
       <script
         dangerouslySetInnerHTML={{
           __html: `
-            window.location.href = 'https://skkhandokar22.pythonanywhere.com/api/check/${shortCode}/';
+            window.location.href = '${BASE_URL}/api/check/${shortCode}/';
           `,
         }}
       />

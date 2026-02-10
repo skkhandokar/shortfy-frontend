@@ -17,6 +17,7 @@ import ShareIcon from '@mui/icons-material/Share'
 import QrCodeIcon from '@mui/icons-material/QrCode'
 import AnalyticsIcon from '@mui/icons-material/Analytics'
 import DeleteIcon from '@mui/icons-material/Delete'
+import BASE_URL from '@/config/api'
 
 export default function URLCard({ url, origin, setUrls }) {
   const shortUrl = `${origin}/${url.short_code}`
@@ -81,7 +82,7 @@ export default function URLCard({ url, origin, setUrls }) {
 
     try {
       const res = await fetch(
-        `https://skkhandokar22.pythonanywhere.com/api/delete/${url.id}/`,
+        `${BASE_URL}/api/delete/${url.id}/`,
         {
           method: 'DELETE',
           headers: {

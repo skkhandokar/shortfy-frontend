@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import BASE_URL from "@/config/api";
 import { useRouter } from "next/navigation";
 import {
   Box,
@@ -30,7 +31,7 @@ export default function ShortenerForm() {
   const [isCustomShortCode, setIsCustomShortCode] = useState(false);
 
   const router = useRouter();
-  const BASE_URL = "https://shortfy.xyz";
+  const BASE_URLL = "https://shortfy.xyz";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -66,14 +67,14 @@ export default function ShortenerForm() {
         : { original_url: url };
 
       const endpoint = isCustomShortCode
-        ? "https://skkhandokar22.pythonanywhere.com/api/custom-url/"
-        : "https://skkhandokar22.pythonanywhere.com/api/create/";
+        ? `${BASE_URL}/api/custom-url/`
+        : `${BASE_URL}/api/create/`;
 
       const response = await axios.post(endpoint, data, config);
 
       const shortened = isCustomShortCode
-        ? `${BASE_URL}/${customShortCode}`
-        : `${BASE_URL}/${response.data.short_code}`;
+        ? `${BASE_URLL}/${customShortCode}`
+        : `${BASE_URLL}/${response.data.short_code}`;
 
       setShortUrl(shortened);
       setError("");

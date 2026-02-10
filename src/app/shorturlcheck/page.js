@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-
+import BASE_URL from '@/config/api';
 export default function CheckShortURL() {
   const [shortUrl, setShortUrl] = useState('');
   const [originalUrl, setOriginalUrl] = useState('');
@@ -21,7 +21,7 @@ export default function CheckShortURL() {
     try {
       const shortCode = shortUrl.trim().split('/').pop();
       const res = await fetch(
-        `https://skkhandokar22.pythonanywhere.com/api/checkshortcode/${shortCode}/`
+        `${BASE_URL}api/checkshortcode/${shortCode}/`
       );
       const data = await res.json();
 
