@@ -21,7 +21,10 @@ export const metadata = {
     "Create short, branded, and custom URLs for free. Track clicks, location, and device analytics with Shortfy.xyz.",
   keywords:
     "URL shortener, link tracker, custom shortcode, free link shortener, branded links, Shortfy",
-
+  // ✅ এই অংশটি যোগ করুন
+  verification: {
+    google: "sGVAG-17vNkPu8PURvnm76Vtu1N_plJr0oXAm1eJn_M",
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
