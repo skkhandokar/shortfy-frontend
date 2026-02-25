@@ -4,7 +4,7 @@
 
 // app/blog/page.js
 
-import BASE_URL from "@/config/api";
+
 import BlogListClient from "./BlogListClient";
 import BASE_URL from "@/config/api";
 
