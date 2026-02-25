@@ -6,7 +6,7 @@
 
 
 import BlogListClient from "./BlogListClient";
-import BASE_URL from "@/config/api";
+
 const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 
 async function getBlogs(page) {
