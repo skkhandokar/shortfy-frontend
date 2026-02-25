@@ -39,7 +39,7 @@ export default async function sitemap() {
 
   // --- ২. স্ট্যাটিক পেজগুলো সাজানো ---
   const staticPages = [
-    { url: baseURL, lastModified: new Date(), changeFrequency: "daily", priority: 1.0 },
+    { url: baseURL, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseURL}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${baseURL}/bulkshortner`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseURL}/features`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
