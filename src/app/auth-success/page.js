@@ -3,7 +3,7 @@
 import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
-import BASE_URL from '@/config/api';
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 
 // আসল লজিকটি আলাদা কম্পোনেন্টে রাখা হয়েছে
 function AuthSuccessContent() {

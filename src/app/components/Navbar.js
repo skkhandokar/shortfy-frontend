@@ -192,7 +192,7 @@ export default function Navbar() {
                 isActive('/blog') ? 'font-medium underline' : 'hover:text-white'
               }`}
             >
-              Blog
+              Blogs
             </Link>
 
             <Link
@@ -248,7 +248,7 @@ export default function Navbar() {
                   : link === '/features'
                   ? 'Features'
                   : link === '/blog'
-                  ? 'Blog'
+                  ? 'Blogs'
                   : 'Check URLs'
               
               const isProtected = ['/my-urls', '/custom-urls', '/bulkshortner'].includes(link)

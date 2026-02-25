@@ -15,7 +15,7 @@ import GitHubIcon from "@mui/icons-material/GitHub"
 import { useAuth } from "../context/AuthContext"
 import Image from "next/image"
 import { Box } from "@mui/material"
-import BASE_URL from "@/config/api"
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 
 export default function AuthForm({ type = "signin" }) {
   const [formData, setFormData] = useState({

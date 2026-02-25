@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import BASE_URL from "@/config/api";
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 import { useRouter } from "next/navigation";
 import {
   Box,

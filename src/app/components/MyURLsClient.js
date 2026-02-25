@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@mui/material'
 import URLCard from './URLCard'
-import BASE_URL from '@/config/api'
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 
 export default function MyURLsClient() {
   const [urls, setUrls] = useState([])

@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext'
-import BASE_URL from '@/config/api';
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 import {
   Chart as ChartJS,
   CategoryScale,

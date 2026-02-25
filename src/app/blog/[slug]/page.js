@@ -11,7 +11,7 @@
 
 
 import BlogDetailClient from "./BlogDetailClient";
-import BASE_URL from "@/config/api";
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 // ১. এই ফাংশনটি গুগল বা ফেসবুকের জন্য মেটা ডেটা পাঠাবে
 export async function generateMetadata({ params }) {
   const { slug } = await params;

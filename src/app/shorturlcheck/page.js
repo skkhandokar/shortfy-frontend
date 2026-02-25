@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import BASE_URL from '@/config/api';
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 export default function CheckShortURL() {
   const [shortUrl, setShortUrl] = useState('');
   const [originalUrl, setOriginalUrl] = useState('');

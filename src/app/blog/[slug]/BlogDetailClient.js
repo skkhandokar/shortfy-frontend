@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import BASE_URL from "@/config/api";
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 
 // মার্কডাউন কম্পোনেন্ট কাস্টমাইজেশন
 const markdownComponents = {

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material'
 import Link from 'next/link'
 import URLCard from '../components/URLCard'
-import BASE_URL from '@/config/api'
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 export default function MyURLs() {
   const [urls, setUrls] = useState([])
   const [filteredUrls, setFilteredUrls] = useState([])

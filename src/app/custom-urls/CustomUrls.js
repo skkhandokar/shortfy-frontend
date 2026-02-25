@@ -26,7 +26,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import QrCodeIcon from '@mui/icons-material/QrCode'
 import AnalyticsIcon from '@mui/icons-material/Analytics'
 import DeleteIcon from '@mui/icons-material/Delete'
-import BASE_URL from '@/config/api'
+const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 export default function CustomUrls() {
   const [urls, setUrls] = useState([])
   const [filteredUrls, setFilteredUrls] = useState([])
