@@ -1,9 +1,3 @@
-
-
-
-
-
-
 'use client'
 
 import { useState } from "react"
@@ -15,6 +9,7 @@ import GitHubIcon from "@mui/icons-material/GitHub"
 import { useAuth } from "../context/AuthContext"
 import Image from "next/image"
 import { Box } from "@mui/material"
+
 const BASE_URL = "https://skkhandokar22.pythonanywhere.com";
 
 export default function AuthForm({ type = "signin" }) {
@@ -26,7 +21,7 @@ export default function AuthForm({ type = "signin" }) {
     confirmPassword: ""
   })
   const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false) // NEW: Separate state for confirm password
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -131,6 +126,18 @@ export default function AuthForm({ type = "signin" }) {
             {showPassword ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
           </button>
         </div>
+
+        {/* Forgot Password Link - Only for Signin */}
+        {type === "signin" && (
+          <div className="flex justify-end px-2">
+            <Link 
+              href="/forgot-password" 
+              className="text-xs font-bold text-gray-400 hover:text-emerald-500 transition-colors"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+        )}
 
         {type === "signup" && formData.password && !isPasswordValid && (
           <p className="text-[10px] text-orange-500 font-bold ml-2">Password must be at least 8 characters</p>
